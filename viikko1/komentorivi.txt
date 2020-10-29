@@ -1,0 +1,17 @@
+xxxxxx@melkinpaasi:~$ tree kurssit
+kurssit
+└── ot2020
+    ├── unicafe
+    │   ├── Pipfile
+    │   ├── Pipfile.lock
+    │   └── src
+    │       ├── index.py
+    │       ├── kassapaate.py
+    │       ├── maksukortti.py
+    │       └── tests
+    │           ├── __init__.py
+    │           └── maksukortti_test.py
+    └── viikko1
+
+5 directories, 7 files
+xxxxxx@melkinpaasi:~$
