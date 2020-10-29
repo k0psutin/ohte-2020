@@ -1,2 +1,6 @@
-viikko2/maskukortti/.pytest_cache
+viikko2/maksukortti/.pytest_cache
+viikko2/maksukortti/htmlcov
+viikko2/maksukortti/.coverage
 viikko2/unicafe/.pytest_cache
+viikko2/unicafe/htmlcov
+viikko2/unicafe/.coverage
