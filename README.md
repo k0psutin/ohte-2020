@@ -10,4 +10,6 @@
 
 ### Viikko 2
 
+![Coverage report](viikko2/coverage_report.png)
+
 _Linkki projektiin tulee myöhemmin_
