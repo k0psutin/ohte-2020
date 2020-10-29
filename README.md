@@ -12,4 +12,10 @@
 
 ![Coverage report](viikko2/coverage_report.png)
 
+### Viikko 3
+
+![Monopoly class diagram](viikko3/monopoly_class_diagram.png)
+![Machine sequence diagram](viikko3/machine_sequence_diagram.png)
+![Travelcard sequence diagram](viikko3/travelcard_sequence_diagram.png)
+
 _Linkki projektiin tulee myöhemmin_
