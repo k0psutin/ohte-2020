@@ -1,9 +1,11 @@
 # Ohjelmistotekniikka 2020 Syksy
 
-## Linkit laskareihin:
+## Tehtävät:
 
-[Viikko 1](\viikko1)  
-Viikko 2  
-Viikko 3
+### Viikko 1
+
+[gitlog.txt](\viikko1\gitlog.txt)
+
+[komentorivi.txt](\viikko1\komentorivi.txt)
 
 _Linkki projektiin tulee myöhemmin_
