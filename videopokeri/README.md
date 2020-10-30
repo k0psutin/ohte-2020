@@ -9,10 +9,10 @@ Sovelluksen toiminta on testattu Python-versiolla `3.9.0`. Etenenkin vanhempien 
 ## Dokumentaatio
 
 - Käyttöohje
-- [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
+- [Vaatimusmäärittely](../dokumentaatio/vaatimusmaarittely.md)
 - Arkkitehtuurikuvaus
 - Testausdokumentti
-- [Työaikakirjanpito](dokumentaatio/tyoaikakirjanpito.md)
+- [Työaikakirjanpito](../dokumentaatio/tyoaikakirjanpito.md)
 
 ## Asennus
 
