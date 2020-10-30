@@ -15,7 +15,7 @@
 ### Viikko 2
 
 ![Coverage report](viikko2/coverage_report.png)
-[Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
+[Vaatimusmäärittely](videopokeri/dokumentaatio/vaatimusmaarittely.md)
 
 ### Viikko 3
 
