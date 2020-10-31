@@ -4,3 +4,7 @@ viikko2/maksukortti/.coverage
 viikko2/unicafe/.pytest_cache
 viikko2/unicafe/htmlcov
 viikko2/unicafe/.coverage
+videopokeri/.pytest_cache
+videopokeri/htmlcov
+videopokeri/.coverage
+videopokeri/.vscode
