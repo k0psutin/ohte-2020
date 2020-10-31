@@ -8,3 +8,6 @@ videopokeri/.pytest_cache
 videopokeri/htmlcov
 videopokeri/.coverage
 videopokeri/.vscode
+videopokeri/entities/__pycache__
+videopokeri/tests/__pycache__
+videopokeri/ui/__pycache__
