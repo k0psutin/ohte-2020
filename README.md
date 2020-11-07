@@ -1,24 +1,31 @@
-# Ohjelmistotekniikka 2020 Syksy
+# Linkki viikkotehtäviin
 
-## Linkki sovellukseen
+[Viikkotehtävät](tehtavat/README.md)
 
-[OhTe-Videopokeri](/videopokeri)
+# OhTe-Videopokeri
 
-## Tehtävät
+Klassinen videopokeri-peli Pythonilla luotuna. Sovelluksessa pääsee kokemaan klassista videopokeria, joka on tuttua vanhoista (ja uusista) peliautomaateista. Peliä pelataan 1-5 krediitin panoksilla. Tuttuun tapaan pelissä on myös tuplausmahdollisuus, kaikki tai ei mitään!
 
-### Viikko 1
+## Huomio Python-versiosta
 
-[gitlog.txt](viikko1/gitlog.txt)
+Sovelluksen toiminta on testattu Python-versiolla `3.9.0`. Etenenkin vanhempien Python-versioiden kanssa saattaa ilmentyä ongelmia.
 
-[komentorivi.txt](viikko1/komentorivi.txt)
+## Dokumentaatio
 
-### Viikko 2
+- Käyttöohje
+- [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
+- Arkkitehtuurikuvaus
+- Testausdokumentti
+- [Työaikakirjanpito](dokumentaatio/tyoaikakirjanpito.md)
 
-![Coverage report](viikko2/coverage_report.png)
-[Vaatimusmäärittely](videopokeri/dokumentaatio/vaatimusmaarittely.md)
+## Asennus
 
-### Viikko 3
+## Komentorivitoiminnot
 
-![Monopoly class diagram](viikko3/monopoly_class_diagram.png)
-![Machine sequence diagram](viikko3/machine_sequence_diagram.png)
-![Travelcard sequence diagram](viikko3/travelcard_sequence_diagram.png)
+### Ohjelman suorittaminen
+
+### Testaus
+
+### Testikattavuus
+
+### Pylint

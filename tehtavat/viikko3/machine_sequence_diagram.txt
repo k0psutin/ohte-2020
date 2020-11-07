@@ -1,0 +1,28 @@
+main->*machine: Machine()
+activate machine
+machine->*tank: FuelTank()
+machine->tank: fill(40)
+machine->*engine: Engine(tank)
+machine-->main:
+deactivate machine
+main->machine: drive()
+activate machine
+machine->engine: engine.start()
+activate engine
+engine->tank: consume(5)
+activate tank
+tank-->engine:
+deactivate tank
+engine->engine: engine_is_running()
+engine-->machine: True
+deactivate engine
+machine->engine: use_energy()
+activate engine
+engine->tank: consume(10)
+activate tank
+tank-->engine:
+deactivate tank
+engine-->machine:
+deactivate engine
+machine-->main:
+deactivate machine

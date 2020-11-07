@@ -1,0 +1,116 @@
+commit f09a3c891c2d0421678df1398d070bcf317f75bf
+Author: k0psutin 
+Date:   Thu Oct 29 12:31:16 2020 +0200
+
+    poistettu file2 ja file1 -> file22
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ tiedostoja/file3             | 1 +
+ 3 files changed, 1 insertion(+)
+
+commit 53a5ca8f5a597961c8a316621fa2fc7d75d8ae21
+Author: k0psutin 
+Date:   Thu Oct 29 12:28:59 2020 +0200
+
+    tiedostoja hakemisto
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit b1649d513bc7e5de87d0f5e58dc4b707d29068b1
+Author: k0psutin
+Date:   Thu Oct 29 12:25:58 2020 +0200
+
+    Lisäyksiä ja poistoja
+
+ eka.txt    | 8 +++-----
+ kolmas.txt | 2 +-
+ 2 files changed, 4 insertions(+), 6 deletions(-)
+
+commit 2bfab6a6d9bce8e86b287674d1d59d66d8382ab5
+Author: k0psutin
+Date:   Thu Oct 29 12:23:56 2020 +0200
+
+    tiedosto.txt uudelleennimetty eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 09d7b5a0d3f302fd40d402c0832e2d958d4a658b
+Author: k0psutin 
+Date:   Thu Oct 29 12:22:53 2020 +0200
+
+    Poistettu toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 0baa1c5b05626b679aa5e42a53077d1910fd7243
+Author: k0psutin 
+Date:   Thu Oct 29 12:20:32 2020 +0200
+
+    Poistettu osa ja lisätty lisää tekstiä
+
+ tiedosto.txt | 299 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 299 insertions(+)
+
+commit 8fbb260962da174669afe868e2b4616ac404d02c
+Author: k0psutin 
+Date:   Thu Oct 29 12:19:46 2020 +0200
+
+    Lisätty paljon tekstiä
+
+ tiedosto.txt | 579 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 578 insertions(+), 1 deletion(-)
+
+commit a8635da42b8cab7f0304d1c04029944f03fcaec6
+Author: k0psutin
+Date:   Thu Oct 29 12:11:36 2020 +0200
+
+    lisätty juttuja
+
+ stuff/more_stuff.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit bdbc8825b956281e7ae06ae02e1592dec7b2188a
+Author: k0psutin
+Date:   Thu Oct 29 12:11:01 2020 +0200
+
+    sisällön muuttaminen kolmas.txt ja toinen.txt
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit dc7578f98edbea4ff075ea621fd2688569a20770
+Author: k0psutin
+Date:   Thu Oct 29 12:09:37 2020 +0200
+
+    kolmas lisätty
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 58a266a588bdf6c5ea2ca42cffca10250f44f67f
+Author: k0psutin 
+Date:   Thu Oct 29 12:07:45 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit c6feee146f6e15dce00fe50478dbf8a56a31eb2c
+Author: k0psutin 
+Date:   Thu Oct 29 12:06:19 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ 
+ 
