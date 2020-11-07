@@ -10,3 +10,4 @@
 | 2      | gamestate.py luokan luonti näkymien hallintaan                          |
 | 2      | gamemanager.py luokan luonti ja sovelluksen perustoiminnallisuuden teko |
 | 2      | Refaktorointia                                                          |
+| 4      | Pelilogiikan rakentamista                                               |
