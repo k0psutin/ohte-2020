@@ -20,12 +20,63 @@ Sovelluksen toiminta on testattu Python-versiolla `3.9.0`. Etenenkin vanhempien 
 
 ## Asennus
 
+Luo hakemisto mihin haluat asentaa sovelluksen, ja mene siihen komentokehotteessa.
+
+Kloonaa repositio hakemistoon komennolla:
+
+```
+git clone https://github.com/k0psutin/ohte-2020/
+```
+
+Varmista että `pipenv` on asennettuna.
+
+```
+python -m pipenv --version
+pipenv, version 2020.8.13
+```
+
+Asenna virtuaaliympäristön riippuvaisuudet komennolla:
+
+```
+python -m pipenv install
+```
+
 ## Komentorivitoiminnot
 
-### Ohjelman suorittaminen
+### Sovelluksen suorittaminen
+
+Sovellus suoritetaan komennolla
+
+```
+python -m pipenv run start
+```
 
 ### Testaus
 
+Testien ajaminen suoritetaan komennolla
+
+```
+python -m pipenv run test
+```
+
 ### Testikattavuus
 
+Testikattavuus kerätään komennolla:
+
+```
+python -m pipenv run coverage
+```
+
+Raportti generoituu tämän jälkeen komennolla:
+
+```
+python -m pipenv run coverage-report
+```
+
 ### Pylint
+
+Tiedosto [.pylintrc](.pylintrc) määrittämät tarkistukset voidaan suorittaa komennolla:
+
+```
+python -m pipenv run lint
+```
