@@ -11,3 +11,8 @@
 | 2      | gamemanager.py luokan luonti ja sovelluksen perustoiminnallisuuden teko |
 | 2      | Refaktorointia                                                          |
 | 4      | Pelilogiikan rakentamista                                               |
+| 2      | player.py luokan luonti, refaktorointia ja testien tekemistä            |
+| 2      | arkkitehtuuri.md pohjan luonti                                          |
+| 3      | luokka- ja pakkauskaavioiden sekä sekvenssikaavioiden luontia           |
+| 2      | arkkitehtuuri.md tekstin kirjoittamista                                 |
+| 30     | Tunnit yhteensä                                                         |
