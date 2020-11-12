@@ -61,7 +61,7 @@ Kun käyttäjä haluaa jatkaa vanhaa peliään `Continue`-painikkeella, etenee s
 
 ![pelin_jatkamisen_sekvenssikaavio](kuvat/pelin_jatkamisen_sekvenssikaavio.png)
 
-Painikkeen [tapahtumakäsittelijä](../src/ui/components/button.py#L79) kutsuu sovellluslogiikan `GameState` metodia [continue_game](../src/services/game_state.py#L110) joka asettaa sovelluksen tilaksi `play` sekä luo `Player`-olion antamalla konstruktorin parametriksi `False`. Tällöin `Player`-olion tiedot haetaan tiedostosta `PlayerRepository`:n avulla. Kun `Player`-olio on luotu, liitetään se `GameManager`-luokkaan metodilla [set_player](../src/services/game_manager.py#L25). Metodi saa parametrinaan juuri luodun `Player`-olion. Tämän jälkeen `GameState` pääsilmukassa päivitetään pelinäkymää.
+Painikkeen [tapahtumakäsittelijä](../src/ui/components/button.py#L79) kutsuu sovelluslogiikan `GameState` metodia [continue_game](../src/services/game_state.py#L110) joka asettaa sovelluksen tilaksi `play` sekä luo `Player`-olion antamalla konstruktorin parametriksi `False`. Tällöin `Player`-olion tiedot haetaan tiedostosta `PlayerRepository`:n avulla. Kun `Player`-olio on luotu, liitetään se `GameManager`-luokkaan metodilla [set_player](../src/services/game_manager.py#L25). Metodi saa parametrinaan juuri luodun `Player`-olion. Tämän jälkeen `GameState` pääsilmukassa päivitetään pelinäkymää.
 
 ### Yhden vuoron pelaaminen
 

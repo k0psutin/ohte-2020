@@ -11,8 +11,6 @@ GameState-->User Input:
 User Input->User Input: Waiting input
 User Input->GameState: Click Deal
 GameState->GameManager: deal()
-GameState-->User Input: 
-User Input->User Input: Waiting input
 activate GameManager
 GameManager->Player: remove_credits(current_bet)
 deactivate GameManager
@@ -51,6 +49,8 @@ activate Deck
 Deck-->GameManager: card
 deactivate Deck
 GameManager-->GameState:
+GameState-->User Input:
+User Input->User Input: Waiting input
 User Input->GameState: Click Hold on card 1
 GameState->GameManager: hold_card(1)
 activate GameManager
@@ -66,11 +66,8 @@ deactivate GameManager
 GameState-->User Input:
 User Input->User Input: Waiting input
 User Input->GameState: Click Deal
-
 GameState->GameManager: deal()
 activate GameManager
-GameState-->User Input:
-User Input->User Input: Waiting input
 GameManager->Deck: draw_one_card()
 deactivate GameManager
 activate Deck
@@ -91,7 +88,9 @@ deactivate GameManager
 GameManager-->GameState:
 GameState-->GameState: player_win is True
 GameState->GameState: win_view.update()
-User Input->GameState: Click 'Claim winnings'
+GameState-->User Input:
+User Input->User Input: Waiting input
+User Input->GameState: Click Claim winnings
 GameState->GameManager: claim_win()
 GameState-->User Input:
 User Input->User Input: Waiting input
@@ -109,3 +108,5 @@ deactivate GameManager
 GameManager-->GameState:
 GameState-->GameState: player_win is False
 GameState->GameState: play_view.update()
+GameState-->User Input:
+User Input->User Input: Waiting input
