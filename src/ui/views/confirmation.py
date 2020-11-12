@@ -2,25 +2,25 @@ from ui.components.button import Button
 
 
 class Confirmation():
-    def __init__(self, text, yes_action, no_action, gamestate, font):
+    def __init__(self, text, yes_action, no_action, game_state, font):
         self.yes_action = yes_action
         self.no_action = no_action
         self.text = text
 
-        self.display = gamestate.display
+        self.display = game_state.display
         self.font = font
 
         self.yes_button = Button('Yes',
-                                 gamestate.button_width,
-                                 gamestate.button_height,
+                                 game_state.button_width,
+                                 game_state.button_height,
                                  -0.075,
                                  0.0,
                                  self.font,
                                  self.display,
                                  self.yes_action)
         self.no_button = Button('No',
-                                gamestate.button_width,
-                                gamestate.button_height,
+                                game_state.button_width,
+                                game_state.button_height,
                                 0.075,
                                 0.0,
                                 self.font,
@@ -28,8 +28,8 @@ class Confirmation():
                                 self.no_action)
         self.quit_game_text = Button(
             self.text,
-            gamestate.button_width * 2,
-            gamestate.button_height,
+            game_state.button_width * 2,
+            game_state.button_height,
             0.0,
             -0.1,
             self.font,

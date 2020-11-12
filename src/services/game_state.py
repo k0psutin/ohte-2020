@@ -9,7 +9,9 @@ from ui.views.double import Double
 from ui.views.win import Win
 from ui.views.prompt import Prompt
 
-from entities.gamemanager import GameManager
+from services.game_manager import GameManager
+
+from entities.player import Player
 
 
 class GameState():
@@ -24,10 +26,6 @@ class GameState():
         # Initialize game settings
 
         self.background_color = (235, 235, 235)
-
-        # curr_display = pygame.display.Info()
-        # self.display = pygame.display.set_mode(
-        #    (curr_display.current_w, curr_display.current_h))
 
         self.display = pygame.display.set_mode((1440, 900))
         self.width = self.display.get_width()
@@ -52,13 +50,13 @@ class GameState():
 
         # Initialize game manager
 
-        self.gamemanager = GameManager()
+        self.game_manager = GameManager()
 
         pygame.display.set_caption('Videopoker')
 
         # Initialize game view
 
-        self.play_view = Play(self)
+        self.play_view = Play(self, self.game_manager)
 
         # Initialize main menu view
 
@@ -73,17 +71,17 @@ class GameState():
         self.payout_view = Payout(self)
 
         # Initialize double view
-        self.double_view = Double(self)
+        self.double_view = Double(self, self.game_manager)
 
         # Initialize bad double guess view
         self.loose_view = Prompt(
             'Wrong guess. Better luck next time!',
             self,
-            self.gamemanager,
-            self.play)
+            self.game_manager,
+            self.game_manager.end_double)
 
         # Initialize win view
-        self.win_view = Win(self, self.gamemanager)
+        self.win_view = Win(self, self.game_manager)
 
         # Initialize quit confirmation view
         self.confirm_quit_play = Confirmation(
@@ -92,6 +90,13 @@ class GameState():
             self.play,
             self,
             self.font)
+
+        # Initialize game over view
+        self.gameover_view = Prompt(
+            'No credits left. Game over.',
+            self,
+            self.game_manager,
+            self.main_menu)
 
     def main_menu(self):
         self.state = 'main_menu'
@@ -103,12 +108,16 @@ class GameState():
         self.state = 'payout'
 
     def continue_game(self):
+        # TODO load save
+
+        player = Player(True)
+        self.game_manager.set_player(player)
         self.state = 'play'
-        # TODO
 
     def new_game(self):
+        player = Player(True)
+        self.game_manager.set_player(player)
         self.state = 'play'
-        # TODO
 
     def quit_to_mainmenu(self):
         self.state = 'quit_to_mainmenu'
@@ -120,23 +129,11 @@ class GameState():
         pygame.quit()
         quit()
 
-    def double(self):
-        self.gamemanager.double()
-        self.state = 'double_or_nothing'
-
-    def claim(self):
-        self.gamemanager.claim_win()
-        self.state = 'play'
-
-    def deal(self):
-        self.gamemanager.deal()
-
     def run(self):
         self.state = 'main_menu'
 
         while True:
-            if self.gamemanager.player_win is False:
-                self.display.fill(self.background_color)
+            self.display.fill(self.background_color)
             event = pygame.event.poll()
 
             if event.type == pygame.QUIT:
@@ -157,28 +154,31 @@ class GameState():
                 self.scoreboard_view.update(event)
 
             if self.state == 'play':
-                self.play_view.update(event)
+                if self.game_manager.double_active:
+                    self.double_view.update(event)
+
+                    if self.game_manager.bad_guess:
+                        self.loose_view.update(event)
+
+                    elif self.game_manager.player_win:
+                        self.win_view.update(event)
+                else:
+                    self.play_view.update_cards()
+
+                    if self.game_manager.gameover:
+                        self.gameover_view.update(event)
+
+                    elif self.game_manager.player_win:
+                        self.win_view.update(event)
+
+                    else:
+                        self.play_view.update(event)
 
             if self.state == 'quit_to_mainmenu':
                 self.confirm_quit_play.update(event)
 
-            if self.state == 'double_or_nothing':
-                self.double_view.update(event)
-                if self.gamemanager.double_active is False:
-                    self.loose_view.update(event)
-                if self.gamemanager.player_win:
-                    self.win_view.update(event)
-
             if self.state == 'payout':
                 self.payout_view.update(event)
-
-            if self.gamemanager.game_active and self.state == 'play':
-                self.play_view.update_cards()
-
-                if self.gamemanager.player_win:
-                    self.win_view.update(event)
-            else:
-                self.gamemanager.game_active = False
 
             pygame.display.flip()
             pygame.display.update()

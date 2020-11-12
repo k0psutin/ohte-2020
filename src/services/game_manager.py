@@ -4,7 +4,8 @@ from entities.deck import Deck
 class GameManager():
     def __init__(self):
         self.player_win = False
-        self.credits = 10
+
+        self.player = None
 
         self.current_bet = 1
         self.current_win = 0
@@ -14,17 +15,19 @@ class GameManager():
 
         self.player_hand = [None, None, None, None, None]
         self.card_on_hold = [False, False, False, False, False]
-        self.cards = [None, None, None, None, None]
 
         self.deal_active = False
         self.game_active = False
         self.double_active = False
         self.gameover = False
+        self.bad_guess = False
 
-    def take_credits(self):
-        if self.credits < self.current_bet:
-            self.current_bet = self.credits
-        self.credits -= self.current_bet
+    def set_player(self, player):
+        if player.credits == 0:
+            return
+
+        self.player = player
+        self.gameover = False
 
     def increase_bet(self):
         if self.deal_active:
@@ -56,57 +59,48 @@ class GameManager():
         self.double_active = True
         self.deal_active = False
 
-    def low(self):
+    def guess_card_rank(self, guess):
         self.player_hand[0] = self.deck.draw_one_card()
         card_rank = self.player_hand[0].rank
-        if card_rank == 14:
-            card_rank = 1
+        win = False
 
-        if card_rank <= 7:
-            self.current_win = self.current_win * 2
-            self.player_win = True
+        if guess == 'low' and card_rank <= 7 or card_rank == 14:
             self.winning_hand = 'Low Card!'
-        else:
-            self.current_win = 0
-            self.double_active = False
-            if self.credits == 0:
-                self.gameover = True
-                self.game_active = False
-
-    def high(self):
-        self.player_hand[0] = self.deck.draw_one_card()
-
-        if self.player_hand[0].rank > 7:
-            self.current_win = self.current_win * 2
-            self.player_win = True
+            win = True
+        if guess == 'high' and self.player_hand[0].rank > 7:
             self.winning_hand = 'High Card!'
-        else:
+            win = True
+
+        if win is False:
+            self.player.successful_double(False)
             self.current_win = 0
-            self.double_active = False
-            if self.credits == 0:
-                self.gameover = True
-                self.game_active = False
+            self.bad_guess = True
+
+            self.gameover = (self.player.credits == 0)
+            self.game_active = (self.player.credits != 0)
+        else:
+            self.player_win = True
+            self.current_win = self.current_win * 2
+            self.player.successful_double(True)
+
+    def end_double(self):
+        self.bad_guess = False
+        self.double_active = False
 
     def deal(self):
-        self.double_active = False
+        self.gameover = (self.player.credits == 0)
 
         if self.gameover:
             return
 
         if self.deal_active is not True:
-            if self.credits == 0:
-                self.gameover = True
-                return
-            self.take_credits()
+            self.player.remove_credits(self.current_bet)
 
         self.game_active = True
-        self.player_hand = []
 
         for i in range(0, 5):
             if self.card_on_hold[i] is False:
-                self.cards[i] = self.deck.draw_one_card()
-
-            self.player_hand.append(self.cards[i])
+                self.player_hand[i] = self.deck.draw_one_card()
 
         if self.deal_active:
             self.check_player_hand()
@@ -119,6 +113,7 @@ class GameManager():
         player_hand = list(self.player_hand)
         player_hand.sort()
         self.player_win = True
+        self.game_active = False
 
         count = 1
         pair_count = 0
@@ -187,6 +182,8 @@ class GameManager():
         else:
             self.player_win = False
 
+            self.gameover = (self.player.credits == 0)
+
     def get_win_amount(self):
         return 'You won ' + str(self.current_win) + ' credits!'
 
@@ -210,6 +207,6 @@ class GameManager():
             self.current_win = payouts[number] * self.current_bet
 
     def claim_win(self):
-        self.credits += self.current_win
+        self.player.add_credits(self.current_win)
         self.current_win = 0
         self.player_win = False

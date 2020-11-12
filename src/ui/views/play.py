@@ -4,8 +4,9 @@ from ui.components.gamecard import GameCard
 
 
 class Play():
-    def __init__(self, gamestate):
-        self.gamestate = gamestate
+    def __init__(self, game_state, game_manager):
+        self.game_state = game_state
+        self.game_manager = game_manager
 
         self.card_offset_x = -0.37
         self.card_offset_y = -0.3
@@ -18,89 +19,91 @@ class Play():
         self.play_main_objects = []
         self.play_bet_objects = []
 
+        self.credits = 0
+
         self.open_payout = Button('Payouts',
-                                  self.gamestate.button_width,
-                                  self.gamestate.button_height,
+                                  self.game_state.button_width,
+                                  self.game_state.button_height,
                                   0.43,
                                   -0.47,
-                                  gamestate.font,
-                                  gamestate.display,
-                                  gamestate.payout)
+                                  game_state.font,
+                                  game_state.display,
+                                  game_state.payout)
 
         for i in range(0, 5):
             hold_button = Button('Hold',
-                                 self.gamestate.button_width,
-                                 self.gamestate.button_height,
+                                 self.game_state.button_width,
+                                 self.game_state.button_height,
                                  self.hold_start_offset_x,
                                  0.2,
-                                 gamestate.font,
-                                 gamestate.display,
-                                 gamestate.gamemanager.hold_card,
+                                 game_state.font,
+                                 game_state.display,
+                                 game_manager.hold_card,
                                  i)
             self.hold_objects.append(hold_button)
             self.hold_start_offset_x += self.hold_offset_x_increment
 
         self.deal_button = Button(
             'Deal',
-            self.gamestate.button_width,
-            self.gamestate.button_height,
+            self.game_state.button_width,
+            self.game_state.button_height,
             0.40,
             0.44,
-            gamestate.font,
-            gamestate.display,
+            game_state.font,
+            game_state.display,
             self.deal)
 
         self.credit_text = Label(
             'Credits:',
-            self.gamestate.label_width,
-            self.gamestate.label_height,
+            self.game_state.label_width,
+            self.game_state.label_height,
             -0.4,
             0.53,
-            gamestate,
-            gamestate.font)
+            game_state,
+            game_state.font)
 
         self.show_credits = Label(
-            str(self.gamestate.gamemanager.credits),
-            self.gamestate.label_width,
-            self.gamestate.label_height,
+            str(self.credits),
+            self.game_state.label_width,
+            self.game_state.label_height,
             -0.3,
             0.53,
-            gamestate,
-            gamestate.font)
+            game_state,
+            game_state.font)
 
         self.bet_text = Label('Bet',
-                              self.gamestate.label_width,
-                              self.gamestate.label_height,
+                              self.game_state.label_width,
+                              self.game_state.label_height,
                               0.13,
                               0.53,
-                              gamestate,
-                              self.gamestate.font)
+                              game_state,
+                              self.game_state.font)
 
         self.bet_amount = Button(
-            str(gamestate.gamemanager.current_bet),
-            self.gamestate.small_button_width,
-            self.gamestate.small_button_height,
+            str(game_manager.current_bet),
+            self.game_state.small_button_width,
+            self.game_state.small_button_height,
             0.20,
             0.44,
-            gamestate.font, gamestate.display)
+            game_state.font, game_state.display)
 
         self.increase_bet = Button('+',
-                                   self.gamestate.small_button_width,
-                                   self.gamestate.small_button_height,
+                                   self.game_state.small_button_width,
+                                   self.game_state.small_button_height,
                                    0.25,
                                    0.44,
-                                   gamestate.font,
-                                   gamestate.display,
-                                   gamestate.gamemanager.increase_bet)
+                                   game_state.font,
+                                   game_state.display,
+                                   game_manager.increase_bet)
 
         self.decrease_bet = Button('-',
-                                   self.gamestate.small_button_width,
-                                   self.gamestate.small_button_height,
+                                   self.game_state.small_button_width,
+                                   self.game_state.small_button_height,
                                    0.15,
                                    0.44,
-                                   gamestate.font,
-                                   gamestate.display,
-                                   gamestate.gamemanager.decrease_bet)
+                                   game_state.font,
+                                   game_state.display,
+                                   game_manager.decrease_bet)
 
         self.play_main_objects.append(self.open_payout)
         self.play_main_objects.append(self.deal_button)
@@ -113,43 +116,43 @@ class Play():
         self.play_bet_objects.append(self.decrease_bet)
 
     def update(self, event):
-        if self.gamestate.gamemanager.deal_active:
+        if self.game_state.game_manager.deal_active:
             for i in range(0, 5):
                 self.hold_objects[i].update(
                     event,
-                    self.gamestate.gamemanager.card_on_hold[i])
+                    self.game_state.game_manager.card_on_hold[i])
 
-        if self.gamestate.gamemanager.deal_active is False:
+        if self.game_state.game_manager.deal_active is False:
             for bet_obj in self.play_bet_objects:
                 bet_obj.update(event)
 
         self.bet_amount.change_button_text(
-            str(self.gamestate.gamemanager.current_bet))
+            str(self.game_state.game_manager.current_bet))
 
         self.show_credits.change_text(
-            str(self.gamestate.gamemanager.credits))
+            str(self.game_state.game_manager.player.credits))
 
         for main_obj in self.play_main_objects:
             main_obj.update(event)
 
     def deal(self):
-        if self.gamestate.gamemanager.gameover:
+        if self.game_manager.gameover:
             return
 
         self.card_objects = []
-        self.gamestate.gamemanager.deal()
-        cards = self.gamestate.gamemanager.player_hand
+        self.game_manager.deal()
+        cards = self.game_manager.player_hand
         offset_x = self.card_offset_x
         offset_y = self.card_offset_y
 
         for i in range(0, 5):
             card_obj = GameCard(cards[i],
-                                self.gamestate.card_width,
-                                self.gamestate.card_height,
+                                self.game_state.card_width,
+                                self.game_state.card_height,
                                 offset_x,
                                 offset_y,
-                                self.gamestate.display,
-                                self.gamestate.font)
+                                self.game_state.display,
+                                self.game_state.font)
             self.card_objects.append(card_obj)
             offset_x += 0.15
 

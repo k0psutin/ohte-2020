@@ -3,23 +3,23 @@ from ui.components.label import Label
 
 
 class Payout():
-    def __init__(self, gamestate):
+    def __init__(self, game_state):
         self.payout_text = Label(
             'Payouts',
-            gamestate.small_button_width,
-            gamestate.small_button_height,
+            game_state.small_button_width,
+            game_state.small_button_height,
             -0.05,
             -0.4,
-            gamestate,
-            gamestate.large_font)
+            game_state,
+            game_state.large_font)
         self.close_payout_button = Button('Close',
-                                          gamestate.button_width,
-                                          gamestate.button_height,
+                                          game_state.button_width,
+                                          game_state.button_height,
                                           0,
                                           0.45,
-                                          gamestate.font,
-                                          gamestate.display,
-                                          gamestate.play)
+                                          game_state.font,
+                                          game_state.display,
+                                          game_state.play)
 
         self.payout_objects = []
 

@@ -2,34 +2,34 @@ from ui.components.button import Button
 
 
 class Mainmenu():
-    def __init__(self, gamestate):
+    def __init__(self, game_state):
         self.new_game_button = Button('New game',
-                                      gamestate.button_width,
-                                      gamestate.button_height,
+                                      game_state.button_width,
+                                      game_state.button_height,
                                       0, - 0.2,
-                                      gamestate.font,
-                                      gamestate.display,
-                                      gamestate.new_game)
+                                      game_state.font,
+                                      game_state.display,
+                                      game_state.new_game)
         self.continue_button = Button('Continue',
-                                      gamestate.button_width,
-                                      gamestate.button_height,
+                                      game_state.button_width,
+                                      game_state.button_height,
                                       0, -0.1,
-                                      gamestate.font,
-                                      gamestate.display,
-                                      gamestate.continue_game)
+                                      game_state.font,
+                                      game_state.display,
+                                      game_state.continue_game)
         self.scoreboard_button = Button('Scoreboard',
-                                        gamestate.button_width,
-                                        gamestate.button_height,
+                                        game_state.button_width,
+                                        game_state.button_height,
                                         0, 0,
-                                        gamestate.font,
-                                        gamestate.display,
-                                        gamestate.scoreboard)
-        self.quit_button = Button('Quit', gamestate.button_width,
-                                  gamestate.button_height,
+                                        game_state.font,
+                                        game_state.display,
+                                        game_state.scoreboard)
+        self.quit_button = Button('Quit', game_state.button_width,
+                                  game_state.button_height,
                                   0, 0.1,
-                                  gamestate.font,
-                                  gamestate.display,
-                                  gamestate.quit_game)
+                                  game_state.font,
+                                  game_state.display,
+                                  game_state.quit_game)
 
         self.mainmenu_objects = []
         self.mainmenu_objects.append(self.new_game_button)

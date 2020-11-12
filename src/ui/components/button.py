@@ -1,5 +1,4 @@
 import pygame
-from pygame.constants import MOUSEBUTTONDOWN
 
 
 class Button():
@@ -77,7 +76,7 @@ class Button():
                 self.display.blit(self.button_text,
                                   self.button_text_position)
 
-        if event.type == MOUSEBUTTONDOWN and event.button == 1:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             x_pos, y_pos = event.pos
 
             if self.button_pos_x <= x_pos <= self.x_limit and \

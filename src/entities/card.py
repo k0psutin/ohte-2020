@@ -112,8 +112,8 @@ class Card:
     def __eq__(self, other: 'Card'):
         if other is None:
             return False
-        else:
-            return self.rank == other.rank and self.suit == other.suit
+
+        return self.rank == other.rank and self.suit == other.suit
 
     def __lt__(self, other: 'Card'):
         return self.rank < other.rank

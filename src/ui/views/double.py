@@ -4,61 +4,64 @@ from ui.components.gamecard import GameCard
 
 
 class Double():
-    def __init__(self, gamestate):
+    def __init__(self, game_state, game_manager):
 
-        self.gamestate = gamestate
+        self.game_state = game_state
+        self.game_manager = game_manager
 
         self.low_button = Button('Low',
-                                 gamestate.button_width,
-                                 gamestate.button_height,
+                                 game_state.button_width,
+                                 game_state.button_height,
                                  -0.1,
                                  0.2,
-                                 gamestate.font,
-                                 gamestate.display,
-                                 gamestate.gamemanager.low)
+                                 game_state.font,
+                                 game_state.display,
+                                 game_manager.guess_card_rank,
+                                 'low')
         self.high_button = Button('High',
-                                  gamestate.button_width,
-                                  gamestate.button_height,
+                                  game_state.button_width,
+                                  game_state.button_height,
                                   0.1,
                                   0.2,
-                                  gamestate.font,
-                                  gamestate.display,
-                                  gamestate.gamemanager.high)
+                                  game_state.font,
+                                  game_state.display,
+                                  game_manager.guess_card_rank,
+                                  'high')
 
         self.credit_text = Label('Credits:',
-                                 gamestate.label_width,
-                                 gamestate.label_height,
+                                 game_state.label_width,
+                                 game_state.label_height,
                                  -0.4,
                                  0.53,
-                                 gamestate,
-                                 gamestate.font)
+                                 game_state,
+                                 game_state.font)
 
         self.show_credits = Label(
-            str(self.gamestate.gamemanager.credits),
-            self.gamestate.label_width,
-            self.gamestate.label_height,
+            '',
+            self.game_state.label_width,
+            self.game_state.label_height,
             -0.3,
             0.53,
-            gamestate,
-            gamestate.font)
+            game_state,
+            game_state.font)
 
         self.double_objects = []
 
-        # self.double_objects.append(self.payouts)
         self.double_objects.append(self.low_button)
         self.double_objects.append(self.high_button)
         self.double_objects.append(self.credit_text)
         self.double_objects.append(self.show_credits)
 
     def update(self, event):
-        if self.gamestate.gamemanager.player_hand[0] is not None:
-            self.card_obj = GameCard(self.gamestate.gamemanager.player_hand[0],
-                                     self.gamestate.card_width,
-                                     self.gamestate.card_height,
-                                     -0.07,
-                                     -0.3,
-                                     self.gamestate.display,
-                                     self.gamestate.font)
+        if self.game_manager.player_hand[0] is not None:
+            self.card_obj = GameCard(
+                self.game_manager.player_hand[0],
+                self.game_state.card_width,
+                self.game_state.card_height,
+                -0.07,
+                -0.3,
+                self.game_state.display,
+                self.game_state.font)
 
             self.card_obj.update()
 
@@ -66,4 +69,5 @@ class Double():
             if obj is not None:
                 obj.update(event)
 
-        self.show_credits.change_text(str(self.gamestate.gamemanager.credits))
+        self.show_credits.change_text(
+            str(self.game_manager.player.credits))
