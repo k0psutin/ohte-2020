@@ -2,7 +2,7 @@
 
 ## Rakenne
 
-Ohjelman rakenne noudattelee kolmitasoista kerrosarkkitehtuuria, ja koodin pakkausrakenne oon seuraava:
+Ohjelman rakenne noudattelee kolmitasoista kerrosarkkitehtuuria, ja koodin pakkausrakenne on seuraava:
 
 ![pakkausrakenne](kuvat/pakkausrakenne.png)
 
