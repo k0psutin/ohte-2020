@@ -1,0 +1,34 @@
+User Input->User Input: Waiting input
+GameState->GameState: mainmenu_view.update()
+activate GameState
+User Input->GameState: click 'New Game'
+GameState->GameState: new_game()
+GameState->GameState: state = 'play'
+GameState->*Player: player = Player(True)
+Player-->Player: new_game is True
+activate Player
+deactivate Player
+Player-->Player: credits = 10
+activate Player
+deactivate Player
+Player-->Player: best_double_streak = 0
+activate Player
+deactivate Player
+Player-->Player: best_double_win = 0
+activate Player
+deactivate Player
+Player-->Player: best_credits = 10
+activate Player
+deactivate Player
+Player-->Player: current_double_streak = 0
+activate Player
+deactivate Player
+Player-->GameState: player
+GameState->GameManager: set_player(player)
+activate GameManager
+GameManager-->GameState:
+deactivate GameManager
+GameState-->GameState: state is 'play'
+GameState->GameState: play_view.update()
+GameState-->User Input:
+User Input->User Input: Waiting input

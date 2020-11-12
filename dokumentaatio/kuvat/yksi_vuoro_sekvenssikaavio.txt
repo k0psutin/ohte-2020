@@ -1,0 +1,111 @@
+User Input->User Input: Waiting input
+activate GameState
+GameState->GameState: play_view.update()
+User Input->GameState: Click '+' (Increase bet)
+GameState->GameManager: increase_bet()
+activate GameManager
+GameManager-->GameManager: current_bet = 2
+GameManager-->GameState:
+deactivate GameManager
+GameState-->User Input:
+User Input->User Input: Waiting input
+User Input->GameState: Click Deal
+GameState->GameManager: deal()
+GameState-->User Input: 
+User Input->User Input: Waiting input
+activate GameManager
+GameManager->Player: remove_credits(current_bet)
+deactivate GameManager
+activate Player
+Player-->Player: credits = 8
+Player-->GameManager:
+deactivate Player
+activate GameManager
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+GameManager-->GameState:
+User Input->GameState: Click Hold on card 1
+GameState->GameManager: hold_card(1)
+activate GameManager
+GameManager-->GameState:
+deactivate GameManager
+GameState-->User Input:
+User Input->User Input: Waiting input
+User Input->GameState: Click Hold on card 2
+GameState->GameManager: hold_card(2)
+activate GameManager
+GameManager-->GameState:
+deactivate GameManager
+GameState-->User Input:
+User Input->User Input: Waiting input
+User Input->GameState: Click Deal
+
+GameState->GameManager: deal()
+activate GameManager
+GameState-->User Input:
+User Input->User Input: Waiting input
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
+GameManager->GameManager: check_player_hand()
+GameManager-->GameManager: two_pair is True
+GameManager-->GameManager: set_win_amount(0)
+GameManager-->GameManager: player_win = True
+deactivate GameManager
+GameManager-->GameState:
+GameState-->GameState: player_win is True
+GameState->GameState: win_view.update()
+User Input->GameState: Click 'Claim winnings'
+GameState->GameManager: claim_win()
+GameState-->User Input:
+User Input->User Input: Waiting input
+activate GameManager
+GameManager->Player: add_credits(self.current_win)
+deactivate GameManager
+activate Player
+Player-->Player: credits = 10
+Player-->GameManager:
+deactivate Player
+activate GameManager
+GameManager-->GameManager: current_win = 0
+GameManager-->GameManager: player_win = False
+deactivate GameManager
+GameManager-->GameState:
+GameState-->GameState: player_win is False
+GameState->GameState: play_view.update()

@@ -1,0 +1,52 @@
+User Input->User Input: Waiting input
+User Input->GameState: Click 'Double or nothing'
+activate GameState
+GameState->GameManager: double()
+activate GameManager
+GameManager-->GameManager: double_active = True
+GameManager-->GameState: 
+deactivate GameManager
+GameState-->User Input:
+User Input->User Input: Waiting input
+GameState-->GameState: double_active is True
+GameState->GameState: double_view.update()
+User Input->User Input: Waiting input
+User Input->GameState: Click 'Low'
+GameState->GameManager: guess_card_rank('low')
+activate GameManager
+GameManager->Deck: draw_one_card()
+activate Deck
+deactivate GameManager
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
+GameManager-->GameManager: card_rank > 7
+GameManager-->GameManager: player_win is False
+GameManager-->GameManager: bad_guess is True
+GameManager->Player: successful_double(False)
+activate Player
+deactivate GameManager
+Player-->GameManager:
+deactivate Player
+activate GameManager
+GameManager-->GameManager: current_win = 0
+GameManager-->GameManager: double_active = False
+GameManager-->GameManager: gameover = False
+GameManager-->GameManager: game_active = False
+GameManager-->GameState:
+deactivate GameManager
+GameState-->GameState: bad_guess is True
+GameState->GameState: loose_view.update()
+GameState-->User Input:
+User Input->User Input: Waiting input
+User Input->GameState: Click 'Ok'
+GameState->GameManager: end_double()
+activate GameManager
+GameManager-->GameManager: bad_guess = False
+GameManager-->GameManager: double_active = False
+GameManager-->GameState:
+deactivate GameManager
+GameState-->GameState: doble_active is False
+GameState->GameState: play_view.update()
+GameState-->User Input:
+User Input->User Input: Waiting input
