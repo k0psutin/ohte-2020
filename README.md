@@ -1,7 +1,3 @@
-# Linkki viikkotehtäviin
-
-[Viikkotehtävät](tehtavat/README.md)
-
 # OhTe-Videopokeri
 
 Klassinen videopokeri-peli Pythonilla luotuna. Sovelluksessa pääsee kokemaan klassista videopokeria, joka on tuttua vanhoista (ja uusista) peliautomaateista. Peliä pelataan 1-5 krediitin panoksilla. Tuttuun tapaan pelissä on myös tuplausmahdollisuus, kaikki tai ei mitään!
