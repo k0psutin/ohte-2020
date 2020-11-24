@@ -112,7 +112,7 @@ class GameManager():
     def deal(self):
 
         if self.deal_active is not True:
-            if (self.player.credits == 0):
+            if self.player.credits == 0:
                 self.gameover = True
                 return
             self.deck = Deck()
