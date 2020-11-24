@@ -1,17 +1,14 @@
+from repositories.player_repository import PlayerRepository
+
+
 class Player():
-    def __init__(self, new_game=True):
-
-        if new_game:
-            self.credits = 10
-            self.best_double_streak = 0
-            self.best_double_win = 0
-            self.best_credits = 10
-
-            self.current_double_streak = 0
-
-        else:
-            # TODO Load save
-            raise Exception('Loading old save is not implemented yet.')
+    def __init__(self):
+        self.credits = 10
+        self.best_double_streak = 0
+        self.best_double_win = 0
+        self.best_credits = 10
+        self.current_double_streak = 0
+        self.player_repository = PlayerRepository()
 
     def add_credits(self, amount):
         self.credits += amount
@@ -32,3 +29,27 @@ class Player():
                 self.current_double_streak,
                 self.best_double_streak)
             self.current_double_streak = 0
+
+    def save_player(self):
+        save_data = {'credits': self.credits,
+                     'best_double_streak': self.best_double_streak,
+                     'best_double_win': self.best_double_win,
+                     'best_credits': self.best_credits}
+
+        if self.credits == 0:
+            save_data = None
+
+        self.player_repository.save(save_data)
+
+    def load_player(self):
+        save_data = self.player_repository.load()
+
+        if save_data is None:
+            return None
+
+        self.credits = save_data['credits']
+        self.best_double_streak = save_data['best_double_streak']
+        self.best_double_win = save_data['best_double_win']
+        self.best_credits = save_data['best_credits']
+
+        return self

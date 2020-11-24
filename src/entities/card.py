@@ -1,3 +1,12 @@
+"""Module card.py
+
+    This module is used to create an instance of Card-class.
+
+    Example:
+        card = Card(1,1)
+    """
+
+
 class Card:
     """Class that represent a single card.
 

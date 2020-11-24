@@ -1,16 +1,14 @@
 from entities.deck import Deck
+from entities.player import Player
 
 
 class GameManager():
     def __init__(self):
-        self.player_win = False
-
-        self.player = None
-
         self.current_bet = 1
         self.current_win = 0
         self.winning_hand = ''
 
+        self.player = None
         self.deck = Deck()
 
         self.player_hand = [None, None, None, None, None]
@@ -21,13 +19,37 @@ class GameManager():
         self.double_active = False
         self.gameover = False
         self.bad_guess = False
+        self.player_win = False
 
-    def set_player(self, player):
-        if player.credits == 0:
+    def reset_game(self):
+        self.current_bet = 1
+        self.current_win = 0
+        self.deal_active = False
+        self.game_active = False
+        self.double_active = False
+        self.gameover = False
+        self.bad_guess = False
+        self.player_win = False
+        self.card_on_hold = [False, False, False, False, False]
+
+    def new_game(self):
+        self.reset_game()
+        self.player = Player()
+
+    def continue_game(self):
+        self.reset_game()
+        self.player = Player()
+        self.player = self.player.load_player()
+
+        if self.player is None:
             return
 
-        self.player = player
-        self.gameover = False
+        if self.player.credits == 0:
+            self.gameover = True
+
+    def quit_game(self):
+        self.reset_game()
+        self.player.save_player()
 
     def increase_bet(self):
         if self.deal_active:
@@ -88,12 +110,12 @@ class GameManager():
         self.double_active = False
 
     def deal(self):
-        self.gameover = (self.player.credits == 0)
-
-        if self.gameover:
-            return
 
         if self.deal_active is not True:
+            if (self.player.credits == 0):
+                self.gameover = True
+                return
+            self.deck = Deck()
             self.player.remove_credits(self.current_bet)
 
         self.game_active = True
@@ -210,3 +232,4 @@ class GameManager():
         self.player.add_credits(self.current_win)
         self.current_win = 0
         self.player_win = False
+        self.double_active = False

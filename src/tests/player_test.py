@@ -5,11 +5,7 @@ from entities.player import Player
 
 class TestPlayer(unittest.TestCase):
     def setUp(self):
-        self.player = Player(True)
-
-    def test_constructor_returns_exception_if_not_a_new_player(self):
-        with self.assertRaises(Exception):
-            self.player = Player(False)
+        self.player = Player()
 
     def test_calling_constructor_creates_an_object(self):
         self.assertNotEqual(self.player, None)

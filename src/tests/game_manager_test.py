@@ -2,14 +2,22 @@ import unittest
 
 from services.game_manager import GameManager
 from entities.card import Card
-from entities.player import Player
 
 
 class TestGameManager(unittest.TestCase):
     def setUp(self):
         self.game_manager = GameManager()
-        self.player = Player(True)
-        self.game_manager.set_player(self.player)
+        self.game_manager.new_game()
+
+    def test_reset_game_resets_the_game(self):
+        self.game_manager.deal_active = True
+        self.game_manager.reset_game()
+        self.assertEqual(self.game_manager.deal_active, False)
+
+    def test_new_game_resets_player(self):
+        self.game_manager.player.credits = 0
+        self.game_manager.new_game()
+        self.assertTrue(self.game_manager.player.credits == 10)
 
     def test_calling_constructor_creates_an_object(self):
         self.assertNotEqual(self.game_manager, None)
@@ -322,12 +330,6 @@ class TestGameManager(unittest.TestCase):
         self.game_manager.gameover = True
         self.game_manager.player.credits = 0
         self.assertEqual(self.game_manager.deal(), None)
-
-    def test_set_player_returns_none_if_player_has_no_credits(self):
-        test_player = Player()
-        test_game_manager = GameManager()
-        test_player.credits = 0
-        self.assertEqual(test_game_manager.set_player(test_player), None)
 
     def test_double_method_sets_player_win_to_false(self):
         self.game_manager.double()

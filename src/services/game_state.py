@@ -11,8 +11,6 @@ from ui.views.prompt import Prompt
 
 from services.game_manager import GameManager
 
-from entities.player import Player
-
 
 class GameState():
     def __init__(self):
@@ -88,15 +86,22 @@ class GameState():
             'Quit to mainmenu?',
             self.main_menu,
             self.play,
+            self)
+
+        # Initialize old savegame found view
+        self.confirm_new_game_view = Confirmation(
+            'Starting a new game overwrites old save, continue?',
+            self.new_game,
+            self.main_menu,
             self,
-            self.font)
+            3)
 
         # Initialize game over view
         self.gameover_view = Prompt(
             'No credits left. Game over.',
             self,
             self.game_manager,
-            self.main_menu)
+            self.game_over)
 
     def main_menu(self):
         self.state = 'main_menu'
@@ -108,19 +113,27 @@ class GameState():
         self.state = 'payout'
 
     def continue_game(self):
-        # TODO load save
+        self.game_manager.continue_game()
+        if self.game_manager.player is not None:
+            self.state = 'play'
 
-        player = Player(True)
-        self.game_manager.set_player(player)
-        self.state = 'play'
+    def confirm_new_game(self):
+        if self.game_manager.player is not None:
+            self.state = 'confirm_new_game'
+        else:
+            self.new_game()
 
     def new_game(self):
-        player = Player(True)
-        self.game_manager.set_player(player)
+        self.game_manager.new_game()
         self.state = 'play'
 
     def quit_to_mainmenu(self):
+        self.game_manager.quit_game()
         self.state = 'quit_to_mainmenu'
+
+    def game_over(self):
+        self.game_manager.quit_game()
+        self.state = 'main_menu'
 
     def play(self):
         self.state = 'play'
@@ -145,10 +158,14 @@ class GameState():
             elif event.type == pygame.KEYDOWN and \
                     event.key == pygame.K_ESCAPE and \
                     self.state != 'main_menu':
-                self.quit_to_mainmenu()
+                if self.game_manager.deal_active is not True:
+                    self.quit_to_mainmenu()
 
             if self.state == 'main_menu':
                 self.mainmenu_view.update(event)
+
+            if self.state == 'confirm_new_game':
+                self.confirm_new_game_view.update(event)
 
             if self.state == 'scoreboard':
                 self.scoreboard_view.update(event)
@@ -163,7 +180,8 @@ class GameState():
                     elif self.game_manager.player_win:
                         self.win_view.update(event)
                 else:
-                    self.play_view.update_cards()
+                    if self.game_manager.gameover is not True:
+                        self.play_view.update_cards()
 
                     if self.game_manager.gameover:
                         self.gameover_view.update(event)
