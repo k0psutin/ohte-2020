@@ -10,7 +10,7 @@ Sovelluksen toiminta on testattu Python-versiolla `3.9.0`. Etenenkin vanhempien 
 
 - Käyttöohje
 - [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
-- Arkkitehtuurikuvaus
+- [Arkkitehtuurikuvaus](dokumentaatio/arkkitehtuurikuvaus.md)
 - Testausdokumentti
 - [Työaikakirjanpito](dokumentaatio/tyoaikakirjanpito.md)
 

@@ -3,11 +3,41 @@ GameState->GameState: mainmenu_view.update()
 activate GameState
 User Input->GameState: click 'Continue Game'
 GameState->GameState: continue_game()
-GameState->GameState: state = 'play'
-GameState->*Player: player = Player(False)
-Player-->Player: new_game is False
+GameState->GameManager: continue_game()
+activate GameManager
+GameManager->GameManager: reset_game()
+GameManager-->GameManager: current_bet = 1
+GameManager-->GameManager: current_win = 0
+GameManager-->GameManager: deal_active = False
+GameManager-->GameManager: game_active == False
+GameManager-->GameManager: double_active = False
+GameManager-->GameManager: game_over = False
+GameManager-->GameManager: bad_guess = False
+GameManager-->GameManager: player_win = False
+GameManager-->GameManager: card_on_hold = [False, False, False, False, False]
+deactivate GameManager
+GameManager->*Player: player = Player()
 activate Player
-Player->PlayerRepository: load_game()
+deactivate Player
+Player-->Player: credits = 10
+activate Player
+deactivate Player
+Player-->Player: best_double_streak = 0
+activate Player
+deactivate Player
+Player-->Player: best_double_win = 0
+activate Player
+deactivate Player
+Player-->Player: best_credits = 10
+activate Player
+deactivate Player
+Player-->Player: current_double_streak = 0
+activate Player
+deactivate Player
+Player-->GameManager: player
+GameManager->Player: load_game()
+activate Player
+Player->PlayerRepository: load()
 activate PlayerRepository
 deactivate Player
 PlayerRepository-->Player: save_data
@@ -15,7 +45,8 @@ deactivate PlayerRepository
 activate Player
 Player-->Player: set save_data 
 deactivate Player
-Player-->GameState: player
+Player-->GameManager: player
+GameManager-->GameState:
 GameState-->GameState: state is 'play'
 GameState->GameState: play_view.update()
 GameState-->User Input:
