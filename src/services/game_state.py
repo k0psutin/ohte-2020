@@ -118,7 +118,9 @@ class GameState():
             self.state = 'play'
 
     def confirm_new_game(self):
-        if self.game_manager.player is not None:
+        self.game_manager.new_game()
+        player = self.game_manager.player.load_player()
+        if player is not None:
             self.state = 'confirm_new_game'
         else:
             self.new_game()
