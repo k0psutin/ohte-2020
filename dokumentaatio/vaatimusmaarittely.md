@@ -17,7 +17,7 @@ Käyttäjiä on vain yksi, eli perustoiminnot omaava pelaaja.
 - Alkuvalikko
 
   - Pelaaja voi luoda uuden pelin (tehty)
-  - Pelaaja voi jatkaa vanhaa peliä
+  - Pelaaja voi jatkaa vanhaa peliä (tehty)
   - Pelaaja voi nähdä tulostaulukon
   - Pelaaja voi sulkea sovelluksen (tehty)
 
@@ -25,7 +25,7 @@ Käyttäjiä on vain yksi, eli perustoiminnot omaava pelaaja.
 
   - Avaa pelinäkymän (tehty)
   - Jos uusi peli, pelaaja aloittaa 10 krediitillä. (tehty)
-  - Jos jatketaan vanhaa, haetaan tallennetut krediitit.
+  - Jos jatketaan vanhaa, haetaan tallennetut krediitit. (tehty)
 
 - Pelinäkymä
 
