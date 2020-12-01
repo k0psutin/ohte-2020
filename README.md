@@ -4,7 +4,7 @@ Klassinen videopokeri-peli Pythonilla luotuna. Sovelluksessa pääsee kokemaan k
 
 ## Huomio Python-versiosta
 
-Sovelluksen toiminta on testattu Python-versiolla `3.9.0`. Etenenkin vanhempien Python-versioiden kanssa saattaa ilmentyä ongelmia.
+Sovelluksen toiminta on testattu Python-versiolla `3.9.0`. Etenkin vanhempien Python-versioiden kanssa saattaa ilmentyä ongelmia.
 
 ## Dokumentaatio
 
