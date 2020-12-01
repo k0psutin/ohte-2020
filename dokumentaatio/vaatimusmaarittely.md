@@ -34,14 +34,14 @@ Käyttäjiä on vain yksi, eli perustoiminnot omaava pelaaja.
   - Pelaaja voi lukita yhden tai useamman kortin minkä haluaa säilyttää pelipöydällä. (tehty)
   - Jaon aikana, jakamisnapista saadaan vaihtokortit, mikäli kortteja ei ole lukittu. (tehty)
   - Korttien tietyt kombinaatiot antavat voittoja (tehty)
-  - Pelaaja voi klikata voittotaulukon auki voittotaulukko-painikkeesta.
+  - Pelaaja voi klikata voittotaulukon auki voittotaulukko-painikkeesta. (tehty)
   - Pelaaja voi lisätä tai vähentää pelattavaa panosta ennen jakamista. (tehty)
   - Pelaaja voi yrittää tuplata halutessaan voittamansa summan (tehty)
     - Tuplaamisessa on mahdollisuus kaksinkertaistaa voittosumman. Mikäli pelaaja arvaa oikein, onko käännetty kortti arvoltaan 1-7 (LOW) vai 8-13 (HIGH). Väärin arvattaessa pelaaja menettää koko summan.
     - Tuplaamista voidaan jatkaa niin kauan kuin halutaan.
 
 - Tulostaulukko
-  - Pitää sisällään tilastoja mm. paljonko on ollut enimmillään rahaa, pisin tuplausputki ja kaikkien voittojen summan.
+  - Pitää sisällään tilastoja mm. paljonko on ollut enimmillään rahaa, pisin tuplausputki ja kaikkien voittojen summan. (tehty)
 
 ## Jatkokehitysideoita
 
