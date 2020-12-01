@@ -41,7 +41,7 @@ Käyttäjiä on vain yksi, eli perustoiminnot omaava pelaaja.
     - Tuplaamista voidaan jatkaa niin kauan kuin halutaan.
 
 - Tulostaulukko
-  - Pitää sisällään tilastoja mm. paljonko on ollut enimmillään rahaa, pisin tuplausputki ja kaikkien voittojen summan. (tehty)
+  - Pitää sisällään tilastoja mm. paljonko on ollut enimmillään rahaa, pisin tuplausputki ja kaikkien voittojen summan.
 
 ## Jatkokehitysideoita
 
