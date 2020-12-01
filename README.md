@@ -76,3 +76,9 @@ Tiedosto [.pylintrc](.pylintrc) määrittämät tarkistukset voidaan suorittaa k
 ```
 python -m pipenv run lint
 ```
+
+---
+
+### Viimeisin julkaisu
+
+[Julkaisu v1.0](https://github.com/k0psutin/ohte-2020/releases/tag/v1.0)
