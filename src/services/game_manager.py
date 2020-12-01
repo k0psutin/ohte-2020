@@ -110,7 +110,7 @@ class GameManager():
 
         Args:
 
-            guess (str): Card rank value guess. 'low' if low card, 
+            guess (str): Card rank value guess. 'low' if low card,
             and 'high' if high card.
 
         Typical usage example:
