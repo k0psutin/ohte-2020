@@ -1,9 +1,27 @@
+"""Module game_manager.py
+
+    This module handles all gameplay logic.
+"""
+
 from entities.deck import Deck
 from entities.player import Player
 
 
 class GameManager():
+    """Class that handles gameplay logic.
+
+    Typical usage example.
+        self.game_manager = GameManager()
+    """
+
     def __init__(self):
+        """Constructor of the class.
+
+        Resets the game upon creating, and also creates an instance of
+        Deck-object.
+
+        Uses the deck instance for dealing cards and doubling.
+        """
         self.current_bet = 1
         self.current_win = 0
         self.winning_hand = ''
@@ -48,6 +66,8 @@ class GameManager():
             self.gameover = True
 
     def quit_game(self):
+        """Resets the game and saves the player data
+        """
         self.reset_game()
         self.player.save_player()
 
@@ -76,12 +96,28 @@ class GameManager():
             self.card_on_hold[value] = True
 
     def double(self):
+        """Setups the game ready for doubling.
+        """
         self.player_hand = [None, None, None, None, None]
         self.player_win = False
         self.double_active = True
         self.deal_active = False
 
     def guess_card_rank(self, guess):
+        """Handles game logic for doubling game.
+
+        Checks if player guessed next card rank correctly.
+
+        Args:
+
+            guess (str): Card rank value guess. 'low' if low card, 
+            and 'high' if high card.
+
+        Typical usage example:
+
+            Player guesses the next card is low.
+            guess_card_rank('low')
+        """
         self.player_hand[0] = self.deck.draw_one_card()
         card_rank = self.player_hand[0].rank
         win = False
@@ -132,6 +168,9 @@ class GameManager():
             self.deal_active = True
 
     def check_player_hand(self):
+        """Handles logic for checking the player hand for win.
+
+        """
         player_hand = list(self.player_hand)
         player_hand.sort()
         self.player_win = True

@@ -1,9 +1,6 @@
 """Module card.py
 
     This module is used to create an instance of Card-class.
-
-    Example:
-        card = Card(1,1)
     """
 
 
@@ -12,9 +9,9 @@ class Card:
 
     Attributes:
 
-       value: An Integer, rank of the card. Min 2, max 14.
+       value (int): An Integer, rank of the card. Min 2, max 14.
 
-       suit: An Integer, value of the suit of the card. Min 1, max 4.
+       suit (int): An Integer, value of the suit of the card. Min 1, max 4.
 
              1 = Hearts
              2 = Diamonds
@@ -34,9 +31,8 @@ class Card:
 
         Args:
 
-            rank: An Integer, rank of the card. Min 1, max 13.
-
-            suit: An Integer, value of the suit of the card. Min 1, max 4.
+            rank (int): The rank of the card. Min 1, max 13.
+            suit (int): The value of the suit of the card. Min 1, max 4.
 
                 1 = Hearts
                 2 = Diamonds
@@ -73,7 +69,7 @@ class Card:
 
            Returns:
 
-               Str: Image file name.
+               str: Image file name.
         """
         suit_type = {1: 'hearts.png',
                      2: 'diamonds.png',
@@ -86,7 +82,7 @@ class Card:
 
            Returns:
 
-               Color, suit color code
+               color: suit color code
 
         """
         if self.color == 'r':
@@ -99,7 +95,7 @@ class Card:
 
            Returns:
 
-               Str, string representation of the rank
+               str: A string representation of the rank
         """
         rank_type = {11: 'J', 12: 'Q', 13: 'K', 14: 'A'}
 
@@ -109,13 +105,6 @@ class Card:
             return str(self.rank)
 
     def __str__(self):
-        """String representation of the card object.
-
-           Returns:
-
-              String, Suite and the rank of the card.
-        """
-
         return f'Rank: {self.rank}, Suit: {self.suit}'
 
     def __eq__(self, other: 'Card'):

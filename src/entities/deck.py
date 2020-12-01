@@ -1,9 +1,6 @@
 """Module deck.py
 
     This module is used to create an instance of a Deck-class.
-
-    Example:
-        deck = Deck()
     """
 
 import random
@@ -33,6 +30,7 @@ class Deck:
         """Generates a deck with 52 cards.
 
         Returns:
+
             List: Containing 52 cards.
         """
         card_deck = []
@@ -43,7 +41,7 @@ class Deck:
         random.shuffle(card_deck)
         return card_deck
 
-    def draw_one_card(self):
+    def draw_one_card(self) -> Card:
         """Returns one card from the top.
 
            If the card retrieved was the last one,
@@ -51,7 +49,8 @@ class Deck:
            to a next card.
 
         Returns:
-            Card: Card
+
+            Card: Card object.
         """
         card = self.card_deck[self.current_card_index]
 

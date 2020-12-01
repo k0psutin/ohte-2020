@@ -1,4 +1,10 @@
+"""Module game_state.py
+
+    This module handles all UI related logic.
+"""
+
 import pygame
+import sys
 
 from ui.views.confirmation import Confirmation
 from ui.views.mainmenu import Mainmenu
@@ -13,7 +19,31 @@ from services.game_manager import GameManager
 
 
 class GameState():
+    """Class that handles UI logic.
+
+    This is a 'switcher'-class that switches UI views depending on
+    the state of the game. Game is running in one loop, and views
+    are controlled with if-else statements, and by an attribute
+    `state`.
+
+    Attributes:
+
+        state: A String, name of the current state.
+
+    Views:
+
+       Mainmenu, Playview, Scoreboard, Payout
+    """
+
     def __init__(self):
+        """Constructor initializes game settings and all the required
+           components for the multiple views, such as the GameManager,
+           that handles the game logic.
+
+
+        Typical usage example:
+            self.game_state = GameState()
+        """
 
         self.state = 'main_menu'
 
@@ -142,9 +172,14 @@ class GameState():
 
     def quit_game(self):
         pygame.quit()
-        quit()
+        sys.exit()
 
     def run(self):
+        """This method activates the main loop and switches the views.
+
+        Typical usage example, when called from main method:
+            self.game_state.run()
+        """
         self.state = 'main_menu'
 
         while True:
