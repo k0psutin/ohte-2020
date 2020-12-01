@@ -21,7 +21,7 @@ class TestPlayerRepository(unittest.TestCase):
         self.assertFalse(self._player_repository.is_save_empty())
 
     def test_is_save_empty_returns_true_if_file_present(self):
-        self._player_repository.save("Test")
+        self._player_repository.save('Test')
         self.assertTrue(self._player_repository.is_save_empty())
 
     def test_load_returns_none_if_no_file_exists(self):
