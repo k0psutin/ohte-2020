@@ -8,10 +8,10 @@ Sovelluksen toiminta on testattu Python-versiolla `3.9.0`. Etenkin vanhempien Py
 
 ## Dokumentaatio
 
-- Käyttöohje
+- [Käyttöohje](dokumentaatio/kayttoohje.md)
 - [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
 - [Arkkitehtuurikuvaus](dokumentaatio/arkkitehtuurikuvaus.md)
-- Testausdokumentti
+- [Testausdokumentti](dokumentaatio/testausdokumentti.md)
 - [Työaikakirjanpito](dokumentaatio/tyoaikakirjanpito.md)
 
 ## Asennus
@@ -38,6 +38,8 @@ python -m pipenv install
 ```
 
 ## Komentorivitoiminnot
+
+Huom. Riippuen käyttöjärjestelmästä, komennot suoritetaan joko `python` tai `python3`.
 
 ### Sovelluksen suorittaminen
 
