@@ -14,6 +14,7 @@ from ui.views.payout import Payout
 from ui.views.double import Double
 from ui.views.win import Win
 from ui.views.prompt import Prompt
+from ui.views.input_area import InputArea
 
 from services.game_manager import GameManager
 
@@ -55,9 +56,15 @@ class GameState():
 
         self.background_color = (235, 235, 235)
 
-        self.display = pygame.display.set_mode((1440, 900))
-        self.width = self.display.get_width()
-        self.height = self.display.get_height()
+        # Initialize screen size settings
+
+        # Fetches system display info, including screensize
+        self.display_info = pygame.display.Info()
+
+        self.width = round(self.display_info.current_w * 0.9)
+        self.height = round(self.display_info.current_h * 0.9)
+
+        self.display = pygame.display.set_mode((self.width, self.height))
 
         # Size settings
 
@@ -92,7 +99,7 @@ class GameState():
 
         # Initialize scoreboard view
 
-        self.scoreboard_view = Scoreboard(self)
+        self.scoreboard_view = Scoreboard(self, self.game_manager)
 
         # Initialize payout view
 
@@ -132,6 +139,10 @@ class GameState():
             self,
             self.game_manager,
             self.game_over)
+
+        # Initialize input view
+        self.input_view = InputArea(self,
+                                    self.game_manager)
 
     def main_menu(self):
         self.state = 'main_menu'
@@ -221,7 +232,10 @@ class GameState():
                         self.play_view.update_cards()
 
                     if self.game_manager.gameover:
-                        self.gameover_view.update(event)
+                        if self.game_manager.new_highscore:
+                            self.input_view.update(event)
+                        else:
+                            self.gameover_view.update(event)
 
                     elif self.game_manager.player_win:
                         self.win_view.update(event)
