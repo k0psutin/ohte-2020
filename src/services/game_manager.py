@@ -18,15 +18,16 @@ class GameManager():
         """Constructor of the class.
 
         Resets the game upon creating, and also creates an instance of
-        Deck-object.
+        Deck-class and Player-class.
 
-        Uses the deck instance for dealing cards and doubling.
+        Deck instance is used for dealing cards and doubling.
+        Player instance is used to control player credits etc.
         """
         self.current_bet = 1
         self.current_win = 0
         self.winning_hand = ''
 
-        self.player = None
+        self.player = Player()
         self.deck = Deck()
 
         self.player_hand = [None, None, None, None, None]
@@ -38,6 +39,7 @@ class GameManager():
         self.gameover = False
         self.bad_guess = False
         self.player_win = False
+        self.new_highscore = False
 
     def reset_game(self):
         self.current_bet = 1
@@ -49,6 +51,12 @@ class GameManager():
         self.bad_guess = False
         self.player_win = False
         self.card_on_hold = [False, False, False, False, False]
+        self.new_highscore = False
+
+    def submit_highscore(self, name):
+        self.player.submit_highscore(name)
+        self.player.save_player()
+        self.reset_game()
 
     def new_game(self):
         self.reset_game()
@@ -56,8 +64,9 @@ class GameManager():
 
     def continue_game(self):
         self.reset_game()
-        self.player = Player()
-        self.player = self.player.load_player()
+
+        if self.player is not None:
+            self.player = self.player.load_player()
 
         if self.player is None:
             return
@@ -66,8 +75,6 @@ class GameManager():
             self.gameover = True
 
     def quit_game(self):
-        """Resets the game and saves the player data
-        """
         self.reset_game()
         self.player.save_player()
 
@@ -136,6 +143,8 @@ class GameManager():
 
             self.gameover = (self.player.credits == 0)
             self.game_active = (self.player.credits != 0)
+            if self.gameover is True:
+                self.new_highscore = self.player.has_new_highscore()
         else:
             self.player_win = True
             self.current_win = self.current_win * 2
@@ -146,9 +155,9 @@ class GameManager():
         self.double_active = False
 
     def deal(self):
-
         if self.deal_active is not True:
             if self.player.credits == 0:
+                self.new_highscore = self.player.has_new_highscore()
                 self.gameover = True
                 return
             self.deck = Deck()
@@ -169,6 +178,10 @@ class GameManager():
 
     def check_player_hand(self):
         """Handles logic for checking the player hand for win.
+
+           Sorts the current hand from low to high, and iterates
+           trough the cards to determine what winning hand the
+           player has.
 
         """
         player_hand = list(self.player_hand)
@@ -244,6 +257,8 @@ class GameManager():
             self.player_win = False
 
             self.gameover = (self.player.credits == 0)
+            if self.gameover is True:
+                self.new_highscore = self.player.has_new_highscore()
 
     def get_win_amount(self):
         return 'You won ' + str(self.current_win) + ' credits!'
@@ -269,6 +284,8 @@ class GameManager():
 
     def claim_win(self):
         self.player.add_credits(self.current_win)
+        if self.double_active:
+            self.player.double_win(self.current_win)
         self.current_win = 0
         self.player_win = False
         self.double_active = False
