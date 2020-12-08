@@ -18,7 +18,7 @@ Käyttäjiä on vain yksi, eli perustoiminnot omaava pelaaja.
 
   - Pelaaja voi luoda uuden pelin (tehty)
   - Pelaaja voi jatkaa vanhaa peliä (tehty)
-  - Pelaaja voi nähdä tulostaulukon
+  - Pelaaja voi nähdä tulostaulukon (tehty)
   - Pelaaja voi sulkea sovelluksen (tehty)
 
 - Uusi peli / vanhan jatkaminen
@@ -41,7 +41,8 @@ Käyttäjiä on vain yksi, eli perustoiminnot omaava pelaaja.
     - Tuplaamista voidaan jatkaa niin kauan kuin halutaan.
 
 - Tulostaulukko
-  - Pitää sisällään tilastoja mm. paljonko on ollut enimmillään rahaa, pisin tuplausputki ja kaikkien voittojen summan.
+  - Pitää sisällään tilastoja mm. paljonko on ollut enimmillään rahaa, pisin tuplausputki ja kaikkien voittojen summan. (tehty)
+  - Pelin loputtua, jos pelaajan tulos on kelvollinen tulostaulukkoon, voidaan tulos tallentaa tulostaulukkoon kolmella kirjaimella. (tehty)
 
 ## Jatkokehitysideoita
 
