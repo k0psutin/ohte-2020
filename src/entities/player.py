@@ -29,6 +29,19 @@ class Player():
         self.current_double_streak = 0
         self.player_repository = PlayerRepository()
 
+    def double_win(self, amount):
+        """Update player stats upon claiming wins from doubling
+
+        Args:
+
+            amount (int): Credit amount.
+        """
+        self.best_double_streak = max(
+            self.current_double_streak,
+            self.best_double_streak)
+        self.best_double_win = max(amount, self.best_double_win)
+        self.current_double_streak = 0
+
     def add_credits(self, amount):
         """Adds credits to player and keeps track of the current best credit.
 
@@ -81,9 +94,6 @@ class Player():
         if successful:
             self.current_double_streak += 1
         else:
-            self.best_double_streak = max(
-                self.current_double_streak,
-                self.best_double_streak)
             self.current_double_streak = 0
 
     def save_player(self):
@@ -128,3 +138,21 @@ class Player():
         self.best_credits = save_data['best_credits']
 
         return self
+
+    def has_new_highscore(self):
+        """Checks if player is eligible for highscores.
+
+        Returns:
+
+            bool: True if eligible, False otherwise.
+        """
+        return self.player_repository.is_new_highscore(self.best_credits)
+
+    def submit_highscore(self, name):
+        """Submits current Player status for highscore submission.
+
+        Args:
+
+            name (str): String containing given user initials.
+        """
+        self.player_repository.update_highscore(self, name)
