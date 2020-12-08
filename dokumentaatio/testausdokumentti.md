@@ -20,7 +20,7 @@ Sovelluslogiikasta vastaavaa `GameManager`-luokkaa testataan [TestGameManager](.
 
 Käyttöliittymäkerrosta lukuunottamatta sovelluksen testauksen haaraumakattavuus on 94%.
 
-![testikattavuus.png](kuvat\testikattavuus.png)
+![testikattavuus.png](kuvat/testikattavuus.png)
 
 Testaamatta jäivät `game_manager.py`-metodit, jotka hyödyntävät `PlayerRepository`-luokkaa. Syy tähän on se, että nämä osat on jo testattu riittävästi [TestPlayerRepository](..\src\tests\repository\test_player_repository.py)-testiluokalla.
 
