@@ -34,6 +34,11 @@ deactivate Player
 Player-->Player: current_double_streak = 0
 activate Player
 deactivate Player
+Player->PlayerRepository: player_repository = PlayerRepository()
+activate PlayerRepository
+PlayerRepository->PlayerRepository: load_highscores()
+deactivate PlayerRepository
+PlayerRepository--> Player:
 Player-->GameManager: player
 GameManager-->GameState:
 GameState-->GameState: state is 'play'

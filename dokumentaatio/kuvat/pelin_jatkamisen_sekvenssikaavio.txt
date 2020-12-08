@@ -16,28 +16,9 @@ GameManager-->GameManager: bad_guess = False
 GameManager-->GameManager: player_win = False
 GameManager-->GameManager: card_on_hold = [False, False, False, False, False]
 deactivate GameManager
-GameManager->*Player: player = Player()
+GameManager->*Player: player = player.load_player()
 activate Player
-deactivate Player
-Player-->Player: credits = 10
-activate Player
-deactivate Player
-Player-->Player: best_double_streak = 0
-activate Player
-deactivate Player
-Player-->Player: best_double_win = 0
-activate Player
-deactivate Player
-Player-->Player: best_credits = 10
-activate Player
-deactivate Player
-Player-->Player: current_double_streak = 0
-activate Player
-deactivate Player
-Player-->GameManager: player
-GameManager->Player: load_game()
-activate Player
-Player->PlayerRepository: load()
+Player->PlayerRepository: player_repository.load()
 activate PlayerRepository
 deactivate Player
 PlayerRepository-->Player: save_data
