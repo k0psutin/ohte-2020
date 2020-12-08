@@ -19,3 +19,4 @@ src/ui/components/__pycache__
 src/services/__pycache__
 src/repositories/__pycache__
 save.dat
+highscores.dat
