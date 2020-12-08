@@ -46,11 +46,12 @@ class Double():
             game_state.font)
 
         self.double_objects = []
+        self.playview_objects = []
 
         self.double_objects.append(self.low_button)
         self.double_objects.append(self.high_button)
-        self.double_objects.append(self.credit_text)
-        self.double_objects.append(self.show_credits)
+        self.playview_objects.append(self.credit_text)
+        self.playview_objects.append(self.show_credits)
 
     def update(self, event):
         if self.game_manager.player_hand[0] is not None:
@@ -66,6 +67,11 @@ class Double():
             self.card_obj.update()
 
         for obj in self.double_objects:
+            if obj is not None:
+                if self.game_manager.player_win is not True:
+                    obj.update(event)
+
+        for obj in self.playview_objects:
             if obj is not None:
                 obj.update(event)
 
