@@ -6,14 +6,14 @@ class Label():
                  offset_x,
                  offset_y,
                  gamestate,
-                 font):
+                 font, font_color=(0, 0, 0)):
 
         self.width = gamestate.width
         self.height = gamestate.height
+        self.color = font_color
         self.size = (size_x, size_y)
         self.x_pos = (self.width/2-(size_x/2))+(self.width*offset_x)
         self.y_pos = (self.height/2-(size_y/2))+(self.height*offset_y)
-        self.color = (0, 0, 0)
         self.font = font
         self.text = self.font.render(text, True, self.color)
         self.display = gamestate.display
