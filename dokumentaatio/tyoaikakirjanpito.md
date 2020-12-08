@@ -21,4 +21,10 @@
 | 28.11 | 2      | payout-näkymän viimeistely sekä game_state.py ja game_manager.py        |
 |       |        | player.py docstringien luontia.                                         |
 | 28.11 | 2      | unittest-dokumentaation lukemista ja player_repository.py testien tekoa |
-|       | 39     | Tunnit yhteensä                                                         |
+| 03.12 | 1      | Käyttöohjeen luontia.                                                   |
+| 03.12 | 1      | Testaudokumentin luontia.                                               |
+| 04.12 | 3      | Tulostaulukon luonti, tulostaulukkoon tallennus/lataus mahdollisuus.    |
+|       |        | input_area.py luonti, player_repository.py muokkaaminen tulostaulukkoa  |
+|       |        | varten.                                                                 |
+| 04.12 | 2      | Docstring kirjoittelua ja testikattavuuden nostellua                    |
+|       | 46     | Tunnit yhteensä                                                         |
