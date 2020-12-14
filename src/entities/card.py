@@ -3,6 +3,8 @@
     This module is used to create an instance of Card-class.
     """
 
+from entities.suit import Suit
+
 
 class Card:
     """Class that represent a single card.
@@ -11,19 +13,14 @@ class Card:
 
        value (int): An Integer, rank of the card. Min 2, max 14.
 
-       suit (int): An Integer, value of the suit of the card. Min 1, max 4.
-
-             1 = Hearts
-             2 = Diamonds
-             3 = Clubs
-             4 = Spades
+       suit (enum): An enum, representing the suite of the card.
 
         color: A char, 'r' for red and 'b' for black.
 
         Typical usage example:
 
         Creates a playing card with value of 1 and suite of Hearts.
-        card = Card(1, 1)
+        card = Card(1, Suite.hearts)
     """
 
     def __init__(self, rank, suit):
@@ -32,17 +29,12 @@ class Card:
         Args:
 
             rank (int): The rank of the card. Min 1, max 13.
-            suit (int): The value of the suit of the card. Min 1, max 4.
-
-                1 = Hearts
-                2 = Diamonds
-                3 = Clubs
-                4 = Spades
+            suit (enum): An enum, representing the suit of the card.
 
         Raises:
 
             Exception: If Card rank is not between (2,14).
-            Exception: If Suit value is not between (1,4).
+            Exception: If Suit is not in
         """
 
         if rank < 2 or rank > 14:
@@ -50,15 +42,15 @@ class Card:
                 'The card rank should be between (2,14). The rank was %s'
                 % (rank))
 
-        if suit < 1 or suit > 4:
+        if suit not in Suit:
             raise Exception(
-                'The card suit should be between (1,4). The suit was %s'
-                % (rank))
+                'Invalid card suite. The suite was %s'
+                % (suit))
 
         self.rank = rank
         self.suit = suit
 
-        if suit in [1, 2]:
+        if suit in [Suit.hearts, Suit.diamonds]:
             self.color = 'r'
 
         else:
@@ -71,10 +63,10 @@ class Card:
 
                str: Image file name.
         """
-        suit_type = {1: 'hearts.png',
-                     2: 'diamonds.png',
-                     3: 'clubs.png',
-                     4: 'spades.png'}
+        suit_type = {Suit.hearts: 'hearts.png',
+                     Suit.diamonds: 'diamonds.png',
+                     Suit.clubs: 'clubs.png',
+                     Suit.spades: 'spades.png'}
         return suit_type[self.suit]
 
     def get_color_code(self):
