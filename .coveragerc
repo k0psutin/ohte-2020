@@ -1,3 +1,10 @@
 [run]
 source = src
-omit = src/tests/**, src/ui/**, src/run.py, src/entities/__init__.py, src/services/game_state.py, src/services/__init__.py, src/repositories/__init__.py,
+omit = src/tests/**, 
+       src/ui/**, 
+       src/run.py, 
+       src/entities/__init__.py, 
+       src/entities/suit.py,
+       src/services/game_state.py, 
+       src/services/__init__.py, 
+       src/repositories/__init__.py,
