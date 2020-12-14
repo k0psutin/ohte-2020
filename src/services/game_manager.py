@@ -5,6 +5,8 @@
 
 from entities.deck import Deck
 from entities.player import Player
+from entities.suit import Suit
+from repositories.player_repository import PlayerRepository
 
 
 class GameManager():
@@ -28,6 +30,7 @@ class GameManager():
         self.winning_hand = ''
 
         self.player = Player()
+        self.player_repository = PlayerRepository()
         self.deck = Deck()
 
         self.player_hand = [None, None, None, None, None]
@@ -41,8 +44,9 @@ class GameManager():
         self.player_win = False
         self.new_highscore = False
 
-    def reset_game(self):
-        self.current_bet = 1
+    def reset_game(self, reset_bet=True):
+        if reset_bet:
+            self.current_bet = 1
         self.current_win = 0
         self.deal_active = False
         self.game_active = False
@@ -50,33 +54,28 @@ class GameManager():
         self.gameover = False
         self.bad_guess = False
         self.player_win = False
+        self.player_hand = [None, None, None, None, None]
         self.card_on_hold = [False, False, False, False, False]
         self.new_highscore = False
 
     def submit_highscore(self, name):
-        self.player.submit_highscore(name)
-        self.player.save_player()
+        self.player_repository.update_highscore(self.player, name)
+        self.player_repository.save(self.player)
         self.reset_game()
 
     def new_game(self):
         self.reset_game()
         self.player = Player()
+        return self.player_repository.has_savegame() is False
 
     def continue_game(self):
         self.reset_game()
-
-        if self.player is not None:
-            self.player = self.player.load_player()
-
-        if self.player is None:
-            return
-
-        if self.player.credits == 0:
-            self.gameover = True
+        self.player = self.player_repository.load()
+        return self.player.credits != 0
 
     def quit_game(self):
         self.reset_game()
-        self.player.save_player()
+        self.player_repository.save(self.player)
 
     def increase_bet(self):
         if self.deal_active:
@@ -97,10 +96,7 @@ class GameManager():
             self.current_bet = 5
 
     def hold_card(self, value):
-        if self.card_on_hold[value]:
-            self.card_on_hold[value] = False
-        else:
-            self.card_on_hold[value] = True
+        self.card_on_hold[value] = not self.card_on_hold[value]
 
     def double(self):
         """Setups the game ready for doubling.
@@ -109,6 +105,9 @@ class GameManager():
         self.player_win = False
         self.double_active = True
         self.deal_active = False
+
+    def reset_double(self):
+        self.reset_game(False)
 
     def guess_card_rank(self, guess):
         """Handles game logic for doubling game.
@@ -141,26 +140,20 @@ class GameManager():
             self.current_win = 0
             self.bad_guess = True
 
-            self.gameover = (self.player.credits == 0)
-            self.game_active = (self.player.credits != 0)
-            if self.gameover is True:
-                self.new_highscore = self.player.has_new_highscore()
+            self.check_if_game_over()
         else:
             self.player_win = True
             self.current_win = self.current_win * 2
             self.player.successful_double(True)
 
-    def end_double(self):
-        self.bad_guess = False
-        self.double_active = False
-
     def deal(self):
         if self.deal_active is not True:
-            if self.player.credits == 0:
-                self.new_highscore = self.player.has_new_highscore()
-                self.gameover = True
-                return
+            self.check_if_game_over()
             self.deck = Deck()
+
+            if self.player.credits < self.current_bet:
+                self.current_bet = self.player.credits
+
             self.player.remove_credits(self.current_bet)
 
         self.game_active = True
@@ -191,26 +184,27 @@ class GameManager():
 
         count = 1
         pair_count = 0
-        pair = False
-        two_pairs = False
-        three_of_a_kind = False
-        four_of_a_kind = False
-        straight = True
-        low_ace_straight = False
-        flush = True
+        combinations = {'pair': False,
+                        'two_pairs': False,
+                        'three_of_a_kind': False,
+                        'four_of_a_kind': False,
+                        'straight': True,
+                        'low_ace_straight': False,
+                        'flush': True,
+                        'royal_flush': False}
 
         for i in range(1, 5):
-            if straight and i == 4 and \
+            if combinations['straight'] and i == 4 and \
                player_hand[i-1].rank == 5 and \
                player_hand[i].rank == 14:
 
-                low_ace_straight = True
+                combinations['low_ace_straight'] = True
 
             if player_hand[i-1].rank != player_hand[i].rank - 1:
-                straight = False
+                combinations['straight'] = False
 
             if player_hand[i-1].suit != player_hand[i].suit:
-                flush = False
+                combinations['flush'] = False
 
             if player_hand[i-1].rank == player_hand[i].rank:
                 count += 1
@@ -220,45 +214,53 @@ class GameManager():
             if count == 2:
                 pair_count += 1
 
-            if pair is False and pair_count == 1:
-                pair = True
+            if combinations['pair'] is False and pair_count == 1:
+                combinations['pair'] = True
 
-            if two_pairs is False and pair_count == 2:
-                two_pairs = True
+            if combinations['two_pairs'] is False and pair_count == 2:
+                combinations['two_pairs'] = True
 
-            if three_of_a_kind is False and count == 3:
-                three_of_a_kind = True
+            if combinations['three_of_a_kind'] is False and count == 3:
+                combinations['three_of_a_kind'] = True
 
-            if four_of_a_kind is False and count == 4:
-                four_of_a_kind = True
+            if combinations['four_of_a_kind'] is False and count == 4:
+                combinations['four_of_a_kind'] = True
 
-        if straight and flush:
-            if player_hand[0].rank == 10 and \
-                    player_hand[0].suit == 1:
+        combinations['royal'] = player_hand[0].rank == 10 and \
+            player_hand[0].suit == Suit.hearts
+
+        self.check_win_amount(combinations)
+
+    def check_win_amount(self, combinations):
+        if combinations['straight'] and combinations['flush']:
+            if combinations['royal']:
                 self.set_win_amount(8)
             else:
                 self.set_win_amount(7)
 
-        elif four_of_a_kind:
+        elif combinations['four_of_a_kind']:
             self.set_win_amount(6)
-        elif two_pairs and three_of_a_kind:
+        elif combinations['two_pairs'] and combinations['three_of_a_kind']:
             self.set_win_amount(5)
-        elif flush:
+        elif combinations['flush']:
             self.set_win_amount(4)
-        elif straight or low_ace_straight:
+        elif combinations['straight'] or combinations['low_ace_straight']:
             self.set_win_amount(3)
-        elif three_of_a_kind:
+        elif combinations['three_of_a_kind']:
             self.set_win_amount(2)
-        elif two_pairs and four_of_a_kind is not True:
+        elif combinations['two_pairs']:
             self.set_win_amount(1)
-        elif pair:
+        elif combinations['pair']:
             self.set_win_amount(0)
         else:
             self.player_win = False
+            self.check_if_game_over()
 
-            self.gameover = (self.player.credits == 0)
-            if self.gameover is True:
-                self.new_highscore = self.player.has_new_highscore()
+    def check_if_game_over(self):
+        self.gameover = (self.player.credits == 0)
+        if self.gameover is True:
+            self.new_highscore = self.player_repository.is_new_highscore(
+                self.player)
 
     def get_win_amount(self):
         return 'You won ' + str(self.current_win) + ' credits!'
@@ -286,6 +288,4 @@ class GameManager():
         self.player.add_credits(self.current_win)
         if self.double_active:
             self.player.double_win(self.current_win)
-        self.current_win = 0
-        self.player_win = False
-        self.double_active = False
+        self.reset_game(False)
