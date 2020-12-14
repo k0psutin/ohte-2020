@@ -1,13 +1,27 @@
 import unittest
+import os
 
 from services.game_manager import GameManager
+from repositories.player_repository import PlayerRepository
 from entities.card import Card
 from entities.suit import Suit
 
 
 class TestGameManager(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.game_manager = GameManager()
+        cls.game_manager.player_repository = PlayerRepository(
+            'test.dat', 'testhighscore.dat')
+
+    @classmethod
+    def tearDownClass(cls):
+        if os.path.isfile('test.dat'):
+            os.remove('test.dat')
+        if os.path.isfile('testhighscore.dat'):
+            os.remove('testhighscore.dat')
+
     def setUp(self):
-        self.game_manager = GameManager()
         self.game_manager.new_game()
 
     def test_calling_constructor_creates_an_object(self):

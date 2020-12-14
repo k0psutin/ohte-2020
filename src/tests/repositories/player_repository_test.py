@@ -11,10 +11,6 @@ class TestPlayerRepository(unittest.TestCase):
             'test.dat', 'testhighscore.dat')
 
     def setUp(self):
-        if os.path.isfile('test.dat'):
-            os.remove('test.dat')
-        if os.path.isfile('testhighscore.dat'):
-            os.remove('testhighscore.dat')
         self.player = Player()
 
     @classmethod

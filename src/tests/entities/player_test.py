@@ -6,20 +6,8 @@ from repositories.player_repository import PlayerRepository
 
 
 class TestPlayer(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.player_repository = PlayerRepository(
-            'test.dat', 'testhighscore.dat')
-
     def setUp(self):
         self.player = Player()
-
-    @classmethod
-    def tearDownClass(cls):
-        if os.path.isfile('test.dat'):
-            os.remove('test.dat')
-        if os.path.isfile('testhighscore.dat'):
-            os.remove('testhighscore.dat')
 
     def test_calling_constructor_creates_an_object(self):
         self.assertNotEqual(self.player, None)
