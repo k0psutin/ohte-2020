@@ -80,10 +80,18 @@ activate Deck
 Deck-->GameManager: card
 deactivate Deck
 activate GameManager
+GameManager->Deck: draw_one_card()
+deactivate GameManager
+activate Deck
+Deck-->GameManager: card
+deactivate Deck
+activate GameManager
 GameManager->GameManager: check_player_hand()
-GameManager-->GameManager: two_pair is True
-GameManager-->GameManager: set_win_amount(0)
 GameManager-->GameManager: player_win = True
+GameManager->GameManager: check_win_amount(combinations)
+GameManager-->GameManager: combinations['one_pair'] is True
+GameManager->GameManager: set_win_amount(0)
+GameManager-->GameManager: self.current_win = 2
 deactivate GameManager
 GameManager-->GameState:
 GameState-->GameState: player_win is True
@@ -92,8 +100,6 @@ GameState-->User Input:
 User Input->User Input: Waiting input
 User Input->GameState: Click Claim winnings
 GameState->GameManager: claim_win()
-GameState-->User Input:
-User Input->User Input: Waiting input
 activate GameManager
 GameManager->Player: add_credits(self.current_win)
 deactivate GameManager
@@ -102,8 +108,16 @@ Player-->Player: credits = 10
 Player-->GameManager:
 deactivate Player
 activate GameManager
+GameManager->GameManager: reset_game(False)
 GameManager-->GameManager: current_win = 0
+GameManager-->GameManager: deal_active = False
+GameManager-->GameManager: game_active == False
+GameManager-->GameManager: double_active = False
+GameManager-->GameManager: game_over = False
+GameManager-->GameManager: bad_guess = False
 GameManager-->GameManager: player_win = False
+GameManager-->GameManager: player_hand = [None, None, None, None, None]
+GameManager-->GameManager: card_on_hold = [False, False, False, False, False]
 deactivate GameManager
 GameManager-->GameState:
 GameState-->GameState: player_win is False

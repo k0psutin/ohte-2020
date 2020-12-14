@@ -30,9 +30,9 @@ Player-->GameManager:
 deactivate Player
 activate GameManager
 GameManager-->GameManager: current_win = 0
-GameManager-->GameManager: double_active = False
+GameManager-->GameManager: bad_guess = True
+GameManager->GameManager: check_if_game_over()
 GameManager-->GameManager: gameover = False
-GameManager-->GameManager: game_active = False
 GameManager-->GameState:
 deactivate GameManager
 GameState-->GameState: bad_guess is True
@@ -40,10 +40,18 @@ GameState->GameState: loose_view.update()
 GameState-->User Input:
 User Input->User Input: Waiting input
 User Input->GameState: Click 'Ok'
-GameState->GameManager: end_double()
+GameState->GameManager: reset_double()
 activate GameManager
-GameManager-->GameManager: bad_guess = False
+GameManager->GameManager: reset_game(False)
+GameManager-->GameManager: current_win = 0
+GameManager-->GameManager: deal_active = False
+GameManager-->GameManager: game_active == False
 GameManager-->GameManager: double_active = False
+GameManager-->GameManager: game_over = False
+GameManager-->GameManager: bad_guess = False
+GameManager-->GameManager: player_win = False
+GameManager-->GameManager: player_hand = [None, None, None, None, None]
+GameManager-->GameManager: card_on_hold = [False, False, False, False, False]
 GameManager-->GameState:
 deactivate GameManager
 GameState-->GameState: doble_active is False

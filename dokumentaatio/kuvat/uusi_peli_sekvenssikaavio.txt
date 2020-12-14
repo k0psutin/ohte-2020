@@ -14,6 +14,7 @@ GameManager-->GameManager: double_active = False
 GameManager-->GameManager: game_over = False
 GameManager-->GameManager: bad_guess = False
 GameManager-->GameManager: player_win = False
+GameManager-->GameManager: player_hand = [None, None, None, None, None]
 GameManager-->GameManager: card_on_hold = [False, False, False, False, False]
 deactivate GameManager
 GameManager->*Player: player = Player()
@@ -34,13 +35,16 @@ deactivate Player
 Player-->Player: current_double_streak = 0
 activate Player
 deactivate Player
-Player->PlayerRepository: player_repository = PlayerRepository()
-activate PlayerRepository
-PlayerRepository->PlayerRepository: load_highscores()
-deactivate PlayerRepository
-PlayerRepository--> Player:
 Player-->GameManager: player
-GameManager-->GameState:
+activate GameManager
+GameManager->PlayerRepository: has_savegame()
+deactivate GameManager
+activate PlayerRepository
+PlayerRepository-->GameManager: False
+deactivate PlayerRepository
+activate GameManager
+GameManager-->GameState: True
+deactivate GameManager
 GameState-->GameState: state is 'play'
 GameState->GameState: play_view.update()
 GameState-->User Input:

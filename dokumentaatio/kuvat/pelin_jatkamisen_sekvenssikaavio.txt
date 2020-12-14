@@ -1,6 +1,6 @@
 User Input->User Input: Waiting input
-GameState->GameState: mainmenu_view.update()
 activate GameState
+GameState->GameState: mainmenu_view.update()
 User Input->GameState: click 'Continue Game'
 GameState->GameState: continue_game()
 GameState->GameManager: continue_game()
@@ -14,20 +14,14 @@ GameManager-->GameManager: double_active = False
 GameManager-->GameManager: game_over = False
 GameManager-->GameManager: bad_guess = False
 GameManager-->GameManager: player_win = False
+GameManager-->GameManager: player_hand = [None, None, None, None, None]
 GameManager-->GameManager: card_on_hold = [False, False, False, False, False]
 deactivate GameManager
-GameManager->*Player: player = player.load_player()
-activate Player
-Player->PlayerRepository: player_repository.load()
+GameManager->PlayerRepository: player = player_repository.load()
 activate PlayerRepository
-deactivate Player
-PlayerRepository-->Player: save_data
+PlayerRepository-->GameManager: player
 deactivate PlayerRepository
-activate Player
-Player-->Player: set save_data 
-deactivate Player
-Player-->GameManager: player
-GameManager-->GameState:
+GameManager-->GameState: True
 GameState-->GameState: state is 'play'
 GameState->GameState: play_view.update()
 GameState-->User Input:
