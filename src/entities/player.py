@@ -3,8 +3,6 @@
     This module is used to create an instance of a Player-class.
     """
 
-from repositories.player_repository import PlayerRepository
-
 
 class Player():
     """Class that represents the player.
@@ -27,7 +25,6 @@ class Player():
         self.best_double_win = 0
         self.best_credits = 10
         self.current_double_streak = 0
-        self.player_repository = PlayerRepository()
 
     def double_win(self, amount):
         """Update player stats upon claiming wins from doubling
@@ -61,8 +58,8 @@ class Player():
             self.best_credits)
 
     def remove_credits(self, amount):
-        """Removes credits from player. If current amount is more than
-           current credits, will remove remaining credits.
+        """Removes credits from player. If amount is more than
+           players current credits, remove remaining credits from player.
 
         Args:
 
@@ -95,64 +92,3 @@ class Player():
             self.current_double_streak += 1
         else:
             self.current_double_streak = 0
-
-    def save_player(self):
-        """Uses player repository to save player credits and highscores.
-
-        Typical usage example:
-
-            Player exits the game and save_player() is called.
-            save_player()
-        """
-        save_data = {'credits': self.credits,
-                     'best_double_streak': self.best_double_streak,
-                     'best_double_win': self.best_double_win,
-                     'best_credits': self.best_credits}
-
-        if self.credits == 0:
-            save_data = None
-
-        self.player_repository.save(save_data)
-
-    def load_player(self):
-        """Uses player repository to retrieve player data.
-
-        Returns:
-
-            Player: Player-class object if player has credits left.
-                    Returns None otherwise.
-
-        Typical usage example:
-
-            Player continues the game and load_player() is called.
-            player = load_player()
-        """
-        save_data = self.player_repository.load()
-
-        if save_data is None:
-            return None
-
-        self.credits = save_data['credits']
-        self.best_double_streak = save_data['best_double_streak']
-        self.best_double_win = save_data['best_double_win']
-        self.best_credits = save_data['best_credits']
-
-        return self
-
-    def has_new_highscore(self):
-        """Checks if player is eligible for highscores.
-
-        Returns:
-
-            bool: True if eligible, False otherwise.
-        """
-        return self.player_repository.is_new_highscore(self.best_credits)
-
-    def submit_highscore(self, name):
-        """Submits current Player status for highscore submission.
-
-        Args:
-
-            name (str): String containing given user initials.
-        """
-        self.player_repository.update_highscore(self, name)
