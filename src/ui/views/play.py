@@ -2,6 +2,8 @@ from ui.components.button import Button
 from ui.components.label import Label
 from ui.components.gamecard import GameCard
 
+import pygame
+
 
 class Play():
     def __init__(self, game_state, game_manager):
@@ -51,7 +53,7 @@ class Play():
             0.44,
             game_state.font,
             game_state.display,
-            self.deal)
+            game_manager.deal)
 
         self.credit_text = Label(
             'Credits:',
@@ -115,6 +117,19 @@ class Play():
         self.play_bet_objects.append(self.increase_bet)
         self.play_bet_objects.append(self.decrease_bet)
 
+        offset_x = self.card_offset_x
+        offset_y = self.card_offset_y
+
+        for i in range(0, 5):
+            self.card_objects[i] = GameCard(None,
+                                            self.game_state.card_width,
+                                            self.game_state.card_height,
+                                            offset_x,
+                                            offset_y,
+                                            self.game_state.display,
+                                            self.game_state.font)
+            offset_x += 0.15
+
     def update(self, event):
         if self.game_state.game_manager.deal_active:
             for i in range(0, 5):
@@ -135,28 +150,11 @@ class Play():
         for main_obj in self.play_main_objects:
             main_obj.update(event)
 
-    def deal(self):
-        if self.game_manager.gameover:
-            return
-
-        self.card_objects = []
-        self.game_manager.deal()
+    def update_cards(self):
         cards = self.game_manager.player_hand
-        offset_x = self.card_offset_x
-        offset_y = self.card_offset_y
 
         for i in range(0, 5):
-            card_obj = GameCard(cards[i],
-                                self.game_state.card_width,
-                                self.game_state.card_height,
-                                offset_x,
-                                offset_y,
-                                self.game_state.display,
-                                self.game_state.font)
-            self.card_objects.append(card_obj)
-            offset_x += 0.15
+            self.card_objects[i].update_card(cards[i])
 
-    def update_cards(self):
         for card in self.card_objects:
-            if card is not None:
-                card.update()
+            card.update()

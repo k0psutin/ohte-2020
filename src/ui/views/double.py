@@ -54,22 +54,20 @@ class Double():
         self.playview_objects.append(self.show_credits)
 
     def update(self, event):
-        if self.game_manager.player_hand[0] is not None:
-            self.card_obj = GameCard(
-                self.game_manager.player_hand[0],
-                self.game_state.card_width,
-                self.game_state.card_height,
-                -0.07,
-                -0.3,
-                self.game_state.display,
-                self.game_state.font)
+        self.card_obj = GameCard(
+            self.game_manager.player_hand[0],
+            self.game_state.card_width,
+            self.game_state.card_height,
+            -0.07,
+            -0.3,
+            self.game_state.display,
+            self.game_state.font)
 
-            self.card_obj.update()
+        self.card_obj.update()
 
         for obj in self.double_objects:
-            if obj is not None:
-                if self.game_manager.player_win is not True:
-                    obj.update(event)
+            if self.game_manager.player_win is not True and self.game_manager.bad_guess is not True:
+                obj.update(event)
 
         for obj in self.playview_objects:
             if obj is not None:

@@ -9,7 +9,7 @@ class Mainmenu():
                                       0, - 0.2,
                                       game_state.font,
                                       game_state.display,
-                                      game_state.confirm_new_game)
+                                      game_state.new_game)
         self.continue_button = Button('Continue',
                                       game_state.button_width,
                                       game_state.button_height,

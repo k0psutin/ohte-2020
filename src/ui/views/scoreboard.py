@@ -27,7 +27,7 @@ class Scoreboard():
         self.scoreboard_objects.append(self.scoreboard_text)
         self.scoreboard_objects.append(self.close_scoreboard_button)
 
-        self.highscores = game_manager.player.player_repository.highscores
+        self.highscores = game_manager.player_repository.highscores
         scoreboard_header = ['Name', 'Best credits',
                              'Best double win', 'Best double streak']
 
@@ -64,7 +64,7 @@ class Scoreboard():
             i += 1
 
     def update(self, event):
-        self.highscores = self.game_manager.player.player_repository.highscores
+        self.highscores = self.game_manager.player_repository.highscores
 
         for i in range(0, 10):
             for j in range(0, 4):

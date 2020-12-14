@@ -65,6 +65,7 @@ class GameState():
         self.height = round(self.display_info.current_h * 0.9)
 
         self.display = pygame.display.set_mode((self.width, self.height))
+        pygame.display.set_caption('Videopoker')
 
         # Size settings
 
@@ -86,8 +87,6 @@ class GameState():
         # Initialize game manager
 
         self.game_manager = GameManager()
-
-        pygame.display.set_caption('Videopoker')
 
         # Initialize game view
 
@@ -113,7 +112,7 @@ class GameState():
             'Wrong guess. Better luck next time!',
             self,
             self.game_manager,
-            self.game_manager.end_double)
+            self.game_manager.reset_double)
 
         # Initialize win view
         self.win_view = Win(self, self.game_manager)
@@ -128,7 +127,7 @@ class GameState():
         # Initialize old savegame found view
         self.confirm_new_game_view = Confirmation(
             'Starting a new game overwrites old save, continue?',
-            self.new_game,
+            self.play,
             self.main_menu,
             self,
             3)
@@ -154,21 +153,14 @@ class GameState():
         self.state = 'payout'
 
     def continue_game(self):
-        self.game_manager.continue_game()
-        if self.game_manager.player is not None:
+        if self.game_manager.continue_game():
             self.state = 'play'
 
-    def confirm_new_game(self):
-        self.game_manager.new_game()
-        player = self.game_manager.player.load_player()
-        if player is not None:
-            self.state = 'confirm_new_game'
-        else:
-            self.new_game()
-
     def new_game(self):
-        self.game_manager.new_game()
-        self.state = 'play'
+        if self.game_manager.new_game():
+            self.state = 'play'
+        else:
+            self.state = 'confirm_new_game'
 
     def quit_to_mainmenu(self):
         self.game_manager.quit_game()
@@ -228,8 +220,7 @@ class GameState():
                     elif self.game_manager.player_win:
                         self.win_view.update(event)
                 else:
-                    if self.game_manager.gameover is not True:
-                        self.play_view.update_cards()
+                    self.play_view.update_cards()
 
                     if self.game_manager.gameover:
                         if self.game_manager.new_highscore:

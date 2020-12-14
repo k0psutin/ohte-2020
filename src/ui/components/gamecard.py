@@ -13,16 +13,24 @@ class GameCard():
                  display,
                  font):
 
-        self.rank = card.get_rank_type()
+        if card is None:
+            self.rank = ''
+            self.suit = ''
+            self.suit_color = (0, 0, 0)
+            self.color = (0, 0, 0)
+            path = os.path.join(
+                'src', 'resources', 'sprites', 'card_back.png')
 
-        self.suit = card.get_suit_type()
-
-        self.suit_color = card.get_color_code()
-        self.color = (0, 0, 0)
-
-        path = os.path.join('src', 'sprites', card.get_suit_type())
+        else:
+            self.rank = card.get_rank_type()
+            self.suit = card.get_suit_type()
+            self.suit_color = card.get_color_code()
+            self.color = (0, 0, 0)
+            path = os.path.join('src', 'resources', 'sprites',
+                                card.get_suit_type())
 
         self.display = display
+        self.card = card
 
         self.width = display.get_width()
         self.height = display.get_height()
@@ -70,3 +78,43 @@ class GameCard():
         pygame.draw.rect(self.display, self.color, [
             self.card_pos_x, self.card_pos_y,
             self.size_x, self.size_y], 1)
+
+    def default_image(self):
+        self.card_suit = pygame.image.load(self.default).convert_alpha()
+
+    def update_card(self, card):
+        if card is None:
+            self.rank = ''
+            self.suit = ''
+            self.suit_color = (0, 0, 0)
+            self.color = (0, 0, 0)
+            path = os.path.join(
+                'src', 'resources', 'sprites', 'card_back.png')
+        else:
+            self.rank = card.get_rank_type()
+            self.suit = card.get_suit_type()
+            self.suit_color = card.get_color_code()
+            self.color = (0, 0, 0)
+            path = os.path.join('src', 'resources', 'sprites',
+                                card.get_suit_type())
+
+        self.card_rank_left = self.font.render(
+            self.rank, True, self.suit_color)
+        self.card_rank_position_left = self.card_rank_left.get_rect()
+        self.card_rank_position_left.center = (
+            self.card_pos_x+(0.0208*self.width),
+            self.card_pos_y+(0.033*self.height))
+
+        self.card_rank_right = self.font.render(
+            self.rank, True, self.suit_color)
+        self.card_rank_position_right = self.card_rank_right.get_rect()
+        self.card_rank_position_right.center = (
+            self.card_pos_x+(0.118056*self.width),
+            self.card_pos_y+(0.3 * self.height))
+
+        self.card_suit = pygame.image.load(path).convert_alpha()
+
+        self.card_suit_position = self.card_suit.get_rect()
+        self.card_suit_position.center = (
+            self.card_pos_x+(0.07*self.width),
+            self.card_pos_y+(0.167*self.height))

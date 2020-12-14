@@ -9,20 +9,22 @@ class Prompt():
         self.game_manager = game_manager
         self.font = game_state.font
         self.text = text
+        self.x_offset = 0.0
+        self.y_offset = -0.05
 
         self.ok_button = Button('Ok',
                                 self.game_state.button_width,
                                 self.game_state.button_height,
-                                0.0,
-                                0.0,
+                                self.x_offset,
+                                self.y_offset,
                                 self.font,
                                 self.display,
                                 action)
         self.prompt = Button(self.text,
                              self.game_state.button_width * 2,
                              self.game_state.button_height,
-                             0.0,
-                             -0.1,
+                             self.x_offset,
+                             self.y_offset - 0.1,
                              self.font,
                              self.display)
 

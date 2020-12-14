@@ -9,12 +9,14 @@ class Win():
         self.font = game_state.font
         self.winning_hand_text = 'Four of a kind!'
         self.win_text = 'You won 0 credits!'
+        self.x_offset = 0.0
+        self.y_offset = -0.05
 
         self.double = Button('Double or nothing!',
                              self.game_state.button_width,
                              self.game_state.button_height,
-                             -0.075,
-                             0.0,
+                             self.x_offset-0.075,
+                             self.y_offset,
                              self.font,
                              self.display,
                              self.game_manager.double)
@@ -22,7 +24,7 @@ class Win():
                             self.game_state.button_width,
                             self.game_state.button_height,
                             0.075,
-                            0.0,
+                            self.y_offset,
                             self.font,
                             self.display,
                             self.game_manager.claim_win)
@@ -30,16 +32,16 @@ class Win():
             self.winning_hand_text,
             self.game_state.button_width * 2,
             self.game_state.button_height,
-            0.0,
-            -0.15,
+            self.x_offset,
+            self.y_offset-0.15,
             self.font,
             self.display)
         self.win = Button(
             self.win_text,
             self.game_state.button_width * 2,
             self.game_state.button_height,
-            0.0,
-            -0.1,
+            self.x_offset,
+            self.y_offset-0.1,
             self.font,
             self.display)
 
