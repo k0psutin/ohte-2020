@@ -17,6 +17,7 @@ from ui.views.prompt import Prompt
 from ui.views.input_area import InputArea
 
 from services.game_manager import GameManager
+from repositories.player_repository import PlayerRepository
 
 
 class GameState():
@@ -87,6 +88,7 @@ class GameState():
         # Initialize game manager
 
         self.game_manager = GameManager()
+        self.game_manager.player_repository = PlayerRepository()
 
         # Initialize game view
 

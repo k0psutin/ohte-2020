@@ -31,8 +31,12 @@ class PlayerRepository():
         self.highscore_data_name = highscore_data_name
 
         if os.path.isfile(self.save_data_name) is not True:
+            save_data = {'credits': 0,
+                         'best_double_streak': 0,
+                         'best_double_win': 0,
+                         'best_credits': 0}
             with open(self.save_data_name, 'wb') as file:
-                pickle.dump(None, file, pickle.HIGHEST_PROTOCOL)
+                pickle.dump(save_data, file, pickle.HIGHEST_PROTOCOL)
 
         if os.path.isfile(self.highscore_data_name) is not True:
             self.init_highscores()

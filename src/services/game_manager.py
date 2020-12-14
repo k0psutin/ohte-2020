@@ -6,7 +6,6 @@
 from entities.deck import Deck
 from entities.player import Player
 from entities.suit import Suit
-from repositories.player_repository import PlayerRepository
 
 
 class GameManager():
@@ -29,8 +28,8 @@ class GameManager():
         self.current_win = 0
         self.winning_hand = ''
 
-        self.player = Player()
-        self.player_repository = PlayerRepository()
+        self.player = None
+        self.player_repository = None
         self.deck = Deck()
 
         self.player_hand = [None, None, None, None, None]
@@ -107,7 +106,9 @@ class GameManager():
         self.deal_active = False
 
     def reset_double(self):
-        self.reset_game(False)
+        self.bad_guess = False
+        self.double_active = False
+        self.player_hand = [None, None, None, None, None]
 
     def guess_card_rank(self, guess):
         """Handles game logic for doubling game.
