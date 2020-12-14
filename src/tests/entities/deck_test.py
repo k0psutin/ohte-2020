@@ -29,18 +29,19 @@ class TestDeck(unittest.TestCase):
         self.assertTrue(no_duplicates)
 
     def test_get_one_card_returns_the_correct_card(self):
-        card_in_queue = self.test_card_deck[self.deck.current_card_index]
+        card_in_queue = self.test_card_deck[0]
         current_card = self.deck.draw_one_card()
 
         self.assertEqual(card_in_queue, current_card)
 
     def test_all_drawed_cards_are_correct(self):
         correct_draw = False
+        correct_deck = self.deck.card_deck[:]
 
         for i in range(0, 52):
-            card_in_queue = self.test_card_deck[i]
+            next_card = correct_deck[i]
             current_card = self.deck.draw_one_card()
-            correct_draw = (card_in_queue == current_card)
+            correct_draw = (next_card == current_card)
 
         self.assertTrue(correct_draw)
 
@@ -49,3 +50,9 @@ class TestDeck(unittest.TestCase):
         random.shuffle(self.deck.card_deck)
 
         self.assertNotEqual(test_cards, self.deck.card_deck)
+
+    def test_drawing_last_card_resets_the_deck(self):
+        for _ in range(0, 53):
+            self.deck.draw_one_card()
+
+        self.assertEqual(len(self.deck.card_deck), 51)

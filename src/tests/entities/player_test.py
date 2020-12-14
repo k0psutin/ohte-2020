@@ -13,7 +13,6 @@ class TestPlayer(unittest.TestCase):
 
     def setUp(self):
         self.player = Player()
-        self.player.player_repository = self.player_repository
 
     @classmethod
     def tearDownClass(cls):
@@ -87,14 +86,3 @@ class TestPlayer(unittest.TestCase):
         self.player.best_double_win = 0
         self.player.double_win(10)
         self.assertEqual(self.player.best_double_win, 10)
-
-    def test_player_save_returns_correct_data_when_loaded(self):
-        self.player.save_player()
-        test_load = self.player.load_player()
-        self.assertEqual(self.player, test_load)
-
-    def test_player_save_returns_none_if_player_saved_had_0_credits(self):
-        self.player.credits = 0
-        self.player.save_player()
-        test_load = self.player.load_player()
-        self.assertEqual(test_load, None)
