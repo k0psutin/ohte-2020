@@ -79,11 +79,11 @@ Tarkastellaan tilannetta, missä käyttäjä korottaa korottaa panosta kerran, a
 
 ![pelin_jatkamisen_sekvenssikaavio](kuvat/yksi_vuoro_sekvenssikaavio.png)
 
-Painikkeen `+` [tapahtumakäsittelijä](../src/ui/components/button.py#L79) kutsuu `GameManager`:in metodia [increase_bet](../src/services/game_manager.py#L80), ja korottaa käytettävää panosta yhdellä. Tämä näkyy käyttäjälle realiaikaisesti, koska jatkuvasti päivitetään pelinäkymää pääsilmukassa.
+Painikkeen `+` [tapahtumakäsittelijä](../src/ui/components/button.py#L79) kutsuu `GameManager`:in metodia [increase_bet](../src/services/game_manager.py#L79), ja korottaa käytettävää panosta yhdellä. Tämä näkyy käyttäjälle realiaikaisesti, koska jatkuvasti päivitetään pelinäkymää pääsilmukassa.
 
 Tämän jälkeen `Deal`-painikkeen painamisen jälkeen, [tapahtumakäsittelijä](../src/ui/components/button.py#L79) kutsuu `GameManager`:in metodia [deal](../src/services/game_manager.py#L150), jonka logiikka aloittaa pelivuoron. Pelivuoron alussa kutsutaan `Player`:n metodia [remove_credits](../src/entities/player.py#L60), parametrilla `current_bet`. Seuraavaksi kutsutaan `Deck`:n metodia [draw_one_card](../src/entities/deck.py#L44) viisi kertaa jonka jälkeen pelikortit näkyvät pelinäkymässä.
 
-Nyt kun käyttäjä lukitsee pelikortteja, painikkeen [tapahtumakäsittelijä](../src/ui/components/button.py#L79) kutsuu `GameManager`:in metodia [hold_card](../src/services/game_manager.py#L97) ja saa parametrina lukittavan kortin numeron. Kun käyttäjä on tyytyväinen lukittuihin kortteihin, painikkeella `Deal` aktivoidaan taas `GameState`-luokan kautta `GameManager:n metodi [deal](../src/services/game_manager.py#L150), joka vaihtaa uudet pelikortit _ei-lukittujen_ pelikorttien paikalle, ja tarkistaa onko käyttäjällä voittoa.
+Nyt kun käyttäjä lukitsee pelikortteja, painikkeen [tapahtumakäsittelijä](../src/ui/components/button.py#L79) kutsuu `GameManager`:in metodia [hold_card](../src/services/game_manager.py#L97) ja saa parametrina lukittavan kortin numeron. Kun käyttäjä on tyytyväinen lukittuihin kortteihin, painikkeella `Deal` aktivoidaan taas `GameState`-luokan kautta `GameManager`:n metodi [deal](../src/services/game_manager.py#L150), joka vaihtaa uudet pelikortit _ei-lukittujen_ pelikorttien paikalle, ja tarkistaa onko käyttäjällä voittoa.
 
 Voiton tarkistus tapahtuu `GameManager`:in metodilla [check_player_hand](../src/services/game_manager.py#L173) joka vastaa pelin voittologiikasta. Koska kyseessä oli voittava käsi, kutsutaan `GameManager`:in metodia [set_win_amount](../src/services/game_manager.py#L269) sekä asetetaan muuttuja `player_win` todeksi.
 
