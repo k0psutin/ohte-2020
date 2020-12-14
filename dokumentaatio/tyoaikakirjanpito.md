@@ -27,4 +27,7 @@
 |       |        | input_area.py luonti, player_repository.py muokkaaminen tulostaulukkoa  |
 |       |        | varten.                                                                 |
 | 04.12 | 2      | Docstring kirjoittelua ja testikattavuuden nostellua                    |
-|       | 46     | Tunnit yhteensä                                                         |
+| 12.12 | 2      | enum.py luonti ja refaktorointia                                        |
+| 12.12 | 2      | Refaktorointia ja dokumenttien läpikäyntiä                              |
+| 13.12 | 2      | Refaktorointia ja kortin kääntökuvan lisäys                             |
+|       | 52     | Tunnit yhteensä                                                         |

@@ -18,7 +18,7 @@ Sovelluslogiikasta vastaavaa `GameManager`-luokkaa testataan [TestGameManager](.
 
 ### Testauskattavuus
 
-Käyttöliittymäkerrosta lukuunottamatta sovelluksen testauksen haaraumakattavuus on 94%.
+Käyttöliittymäkerrosta lukuunottamatta sovelluksen testauksen haaraumakattavuus on 97%.
 
 ![testikattavuus.png](kuvat/testikattavuus.png)
 
