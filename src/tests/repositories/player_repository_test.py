@@ -1,5 +1,8 @@
 import unittest
 import os
+import random
+import string
+
 from repositories.player_repository import PlayerRepository
 from entities.player import Player
 
@@ -43,6 +46,29 @@ class TestPlayerRepository(unittest.TestCase):
                             'best_credits': test_load.best_credits}
 
         self.assertEqual(test_player, test_load_player)
+
+    def test_load_highscore_returns_correct_data(self):
+        highscores = []
+        for i in range(1, 11):
+            name = random.choice(string.ascii_uppercase)+random.choice(
+                string.ascii_uppercase)+random.choice(string.ascii_uppercase)
+            highscore_entry = {'name': name,
+                               'best_credits': i*20,
+                               'best_double_win': i*10,
+                               'best_double_streak': i}
+            highscores.append(highscore_entry)
+
+        self.player_repository.highscores = highscores
+        self.player_repository.save_highscores()
+
+        highscores = sorted(
+            highscores, key=lambda i: i['best_credits'], reverse=False)
+
+        self.player_repository.load_highscores()
+
+        test_highscore = self.player_repository.highscores
+
+        self.assertEqual(highscores, test_highscore)
 
     def test_if_player_has_a_new_highscore_return_true(self):
         self.player.best_credits = 100
