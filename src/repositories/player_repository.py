@@ -103,7 +103,7 @@ class PlayerRepository():
             pickle.dump(self.highscores, file, pickle.HIGHEST_PROTOCOL)
 
     def load_highscores(self):
-        """Fetches highscore from disk.
+        """Fetch highscore data from disk.
 
         Returns:
             list: List of highscore entries.
