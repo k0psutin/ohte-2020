@@ -2,7 +2,7 @@
 
 Lataa projektin viimeisimmän [releases](https://github.com/k0psutin/ohte-2020/releases) lähdekoodi valitsemalla _Assets_-osion alta _Source code_.
 
-Sovellus luo automaattisesti tallennustiedostot. Tulostaulukon alustaminen tapahtuu siis poistamalla `highscores.dat` -tiedosto.
+Sovellus luo automaattisesti tallennustiedostot. Tulostaulukon alustaminen tapahtuu poistamalla `highscores.dat` -tiedosto.
 
 ## Ohjelman käynnistäminen
 
